@@ -2,49 +2,6 @@
 
 <template>
     <footer class="footer">
-        <div class="footer-section">
-            <div class="address">
-                <h4>Address</h4>
-                Økernveien 94, 0579 Oslo, Norway <br />
-                info@ikhapp.org
-            </div>
-            <div class="social-icons">
-                <!-- 这里可以添加社交图标链接，例如 Twitter, YouTube, LinkedIn -->
-                <a href="#"
-                    ><img src="@/assets/twitter-icon.png" alt="Twitter"
-                /></a>
-                <a href="#"
-                    ><img src="@/assets/youtube-icon.png" alt="YouTube"
-                /></a>
-                <a href="#"
-                    ><img src="@/assets/linkedin-icon.png" alt="LinkedIn"
-                /></a>
-            </div>
-        </div>
-
-        <div class="footer-section">
-            <div class="partner-logos">
-                <!-- 合作伙伴的图标 -->
-                <img src="@/assets/partner1.png" alt="Partner 1" />
-                <img src="@/assets/partner2.png" alt="Partner 2" />
-                <!-- ... 其他合作伙伴图标 ... -->
-            </div>
-        </div>
-
-        <div class="footer-section">
-            <div class="about-links">
-                <h4>About</h4>
-                Library <br />
-                Stories and Research Briefs <br />
-                Updates and Events
-            </div>
-            <div class="legal-links">
-                <h4>Legal</h4>
-                Privacy Policy <br />
-                Sitemap
-            </div>
-        </div>
-
         <div class="copyright">© IKHAPP Website by WebCastle</div>
     </footer>
 </template>
