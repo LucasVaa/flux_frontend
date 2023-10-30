@@ -9,34 +9,17 @@
         <ul class="nav-links">
             <li><router-link to="/about-us">About Us</router-link></li>
             <li>
-                <router-link to="/stories"
-                    >Stories and Research Briefs</router-link
+                <a href="https://env.nankai.edu.cn/" target="_blank"
+                    >The College of Environmental Science and Engineering</a
                 >
-                <span class="dropdown-arrow">▼</span>
             </li>
-            <li>
-                <router-link to="/resources">Resources</router-link>
-                <span class="dropdown-arrow">▼</span>
-            </li>
-            <li>
-                <router-link to="/topics">Topics</router-link>
-                <span class="dropdown-arrow">▼</span>
-            </li>
-            <li><router-link to="/u-and-e">Updates and Events</router-link></li>
-            <li><router-link to="/contact">Contact</router-link></li>
         </ul>
-        <div class="coalition">
-            Scientists' Coalition for an Effective Treaty
-        </div>
-        <div class="search-icon">
-            <img src="@/assets/icon-menu-search.svg" alt="Search" />
-        </div>
     </nav>
 </template>
 
 <script>
 export default {
-    name: "Navbar",
+    name: "Navbar"
 };
 </script>
 
@@ -83,19 +66,5 @@ export default {
 .nav-links a:hover {
     background-color: #555;
     border-radius: 5px;
-}
-
-.search-icon img {
-    width: 25px; /* 根据图标大小调整 */
-}
-
-.dropdown-arrow {
-    margin-left: 5px;
-}
-
-.coalition {
-    color: white;
-    font-size: 14px;
-    margin-left: 20px;
 }
 </style>
