@@ -2,7 +2,7 @@
 
 <template>
     <footer class="footer">
-        <div class="copyright">© IKHAPP Website by WebCastle</div>
+        <div class="copyright">© NKU</div>
     </footer>
 </template>
 

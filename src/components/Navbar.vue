@@ -7,7 +7,7 @@
             NKU
         </div>
         <ul class="nav-links">
-            <li><router-link to="/about-us">About Us</router-link></li>
+            <li><router-link to="/about">About Us</router-link></li>
             <li>
                 <a href="https://env.nankai.edu.cn/" target="_blank"
                     >The College of Environmental Science and Engineering</a
