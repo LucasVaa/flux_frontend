@@ -40,18 +40,77 @@
         <!-- Location map placeholder -->
         <div class="map-section">
             <h2>Location map</h2>
-            <div class="map-placeholder">Map here</div>
+            <div class="map-placeholder">
+                <img src="@/assets/map.jpg" class="map" />
+            </div>
         </div>
 
         <!-- Model inputs section -->
         <div class="model-inputs-section">
             <h2>Model inputs</h2>
-            <div>
-                <label>Catchment characteristics:</label>
+            <!-- Slider placeholder -->
+            <div class="slider-placeholder">
                 <div>
-                    <label>Population density [capita/km²]</label>
-                    <!-- Slider placeholder -->
-                    <div class="slider-placeholder">Input here</div>
+                    <h2>Characteristics:</h2>
+
+                    <div class="input-group">
+                        <label>人均垃圾产生量 kg/person/day</label>
+                        <Slider
+                            v-model="perCapitaWaste"
+                            :min="0"
+                            :max="2"
+                            :step="0.1"
+                            :format="format"
+                        ></Slider>
+                        <span>{{ perCapitaWaste }}</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>人口密度 people</label>
+                        <Slider
+                            v-model="populationDensity"
+                            :min="0"
+                            :max="20000"
+                            :step="1"
+                        ></Slider>
+                        <span>{{ populationDensity }}</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>塑料垃圾所占比例 %</label>
+                        <Slider
+                            v-model="plasticWasteRatio"
+                            :min="0"
+                            :max="1"
+                            :step="0.01"
+                            :format="format"
+                        ></Slider>
+                        <span>{{ plasticWasteRatio }}</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>管理不当的比例 %</label>
+                        <Slider
+                            v-model="mismanagedRatio"
+                            :min="0"
+                            :max="1"
+                            :step="0.01"
+                            :format="format"
+                        ></Slider>
+                        <span>{{ mismanagedRatio }}</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>入海概率 %</label>
+                        <Slider
+                            v-model="marineEntryProbability"
+                            :min="0"
+                            :max="100"
+                            :step="1"
+                            :disabled="true"
+                        ></Slider>
+                        <span>{{ marineEntryProbability }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -59,18 +118,34 @@
         <!-- Model results placeholder -->
         <div class="model-results-section">
             <h2>Model results</h2>
-            <div class="chart-placeholder">Output here</div>
+            <div class="chart-placeholder">
+                <label>塑料入海通量: </label>
+                <span>{{ plasticOceanInflux }}</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import Slider from "@vueform/slider";
 export default {
+    components: {
+        Slider,
+    },
     name: "Home",
     data() {
         return {
             username: "",
             selectedCatchment: "Boreal - Norway",
+            perCapitaWaste: 0,
+            populationDensity: 0,
+            plasticWasteRatio: 0,
+            mismanagedRatio: 0,
+            marineEntryProbability: 35,
+            plasticOceanInflux: 100,
+            format: function (value) {
+                return `${value}`;
+            },
         };
     },
     methods: {
@@ -81,6 +156,7 @@ export default {
 };
 </script>
 
+<style src="@vueform/slider/themes/default.css"></style>
 <style scoped>
 .container {
     width: 100%;
@@ -146,11 +222,24 @@ h1 {
 .slider-placeholder,
 .chart-placeholder {
     background-color: #f3f3f3;
-    height: 200px;
+    /* height: 200px; */
     border: 1px solid #ddd;
     border-radius: 4px;
     display: flex;
-    justify-content: center;
+    padding: 20px 20px 20px 20px;
     align-items: center;
+}
+
+.input-group {
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 40px;
+}
+
+.map {
+    width: 800px;
 }
 </style>
