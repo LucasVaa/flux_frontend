@@ -8,10 +8,8 @@
             <!-- ... 其他描述性文本 ... -->
         </p>
         <div class="username-input">
-            <label
-                >Please write in your username (no space nor special
-                character):</label
-            >
+            <label>Please write in your username (no space nor special
+                character):</label>
             <input v-model="username" />
         </div>
         <div v-if="username" class="session-message">
@@ -52,75 +50,37 @@
             <div class="slider-placeholder">
                 <div>
                     <h2>Characteristics:</h2>
-
                     <div class="input-group">
-                        <label>人均垃圾产生量 kg/person/day</label>
-                        <Slider
-                            v-model="perCapitaWaste"
-                            :min="0"
-                            :max="2"
-                            :step="0.1"
-                            :format="format"
-                        ></Slider>
-                        <span>{{ perCapitaWaste }}</span>
+                        <label for="waste-per-person">人均垃圾产量 kg/person/day</label>
+                        <input type="number" id="waste-per-person" v-model="perCapitaWaste" step="0.01">
                     </div>
 
                     <div class="input-group">
-                        <label>人口密度 people</label>
-                        <Slider
-                            v-model="populationDensity"
-                            :min="0"
-                            :max="20000"
-                            :step="1"
-                        ></Slider>
-                        <span>{{ populationDensity }}</span>
+                        <label for="population">人口密度 people</label>
+                        <input type="number" id="population" v-model="populationDensity">
                     </div>
 
                     <div class="input-group">
-                        <label>塑料垃圾所占比例 %</label>
-                        <Slider
-                            v-model="plasticWasteRatio"
-                            :min="0"
-                            :max="1"
-                            :step="0.01"
-                            :format="format"
-                        ></Slider>
-                        <span>{{ plasticWasteRatio }}</span>
+                        <label for="recycling-rate">塑料垃圾所占比例 %</label>
+                        <input type="number" id="recycling-rate" v-model="plasticWasteRatio" step="0.01">
                     </div>
 
                     <div class="input-group">
-                        <label>管理不当的比例 %</label>
-                        <Slider
-                            v-model="mismanagedRatio"
-                            :min="0"
-                            :max="1"
-                            :step="0.01"
-                            :format="format"
-                        ></Slider>
-                        <span>{{ mismanagedRatio }}</span>
-                    </div>
-
-                    <div class="input-group">
-                        <label>入海概率 %</label>
-                        <Slider
-                            v-model="marineEntryProbability"
-                            :min="0"
-                            :max="100"
-                            :step="1"
-                            :disabled="true"
-                        ></Slider>
-                        <span>{{ marineEntryProbability }}</span>
+                        <label for="landfill-rate">管理不当的比例 %</label>
+                        <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01">
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="button-container">
+            <button class="styled-button" @click="sendGetRequest">Run Model</button>
+        </div>
         <!-- Model results placeholder -->
         <div class="model-results-section">
             <h2>Model results</h2>
             <div class="chart-placeholder">
                 <label>塑料入海通量: </label>
-                <span>{{ plasticOceanInflux }}</span>
+                <span>{{ plasticOceanInflux }} tons</span>
             </div>
         </div>
     </div>
@@ -128,6 +88,8 @@
 
 <script>
 import Slider from "@vueform/slider";
+import axios from 'axios';
+
 export default {
     components: {
         Slider,
@@ -142,7 +104,7 @@ export default {
             plasticWasteRatio: 0,
             mismanagedRatio: 0,
             marineEntryProbability: 35,
-            plasticOceanInflux: 100,
+            plasticOceanInflux: 0,
             format: function (value) {
                 return `${value}`;
             },
@@ -152,6 +114,25 @@ export default {
         changeSite() {
             // Logic to change the site
         },
+        sendGetRequest() {
+            axios.get('/api/run/', {
+                params: {
+                    P_input: this.populationDensity,
+                    W_input: this.perCapitaWaste,
+                    PRO_input: this.plasticWasteRatio,
+                    M_input: this.mismanagedRatio,
+                }
+            })
+                .then(response => {
+                    // Handle the response from the server
+                    console.log(response);
+                    this.plasticOceanInflux = response.data.res
+                })
+                .catch(error => {
+                    // Handle errors if the request fails
+                    console.error('There was an error!', error);
+                });
+        }
     },
 };
 </script>
@@ -242,4 +223,53 @@ h1 {
 .map {
     width: 800px;
 }
-</style>
+
+.button-container {
+    text-align: center;
+    /* centers button in the container */
+    margin: 20px 0;
+    /* adds space above and below the button */
+}
+
+.styled-button {
+    background-color: #4CAF50;
+    /* green color to match sliders */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    /* adds a subtle shadow for depth */
+    transition: background-color 0.3s ease;
+}
+
+.styled-button:hover {
+    background-color: #45a049;
+    /* a darker green color for hover state */
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    /* Light grey border */
+    box-shadow: inset 0 1px 3px #ddd;
+    /* Inner shadow for some depth */
+}</style>
