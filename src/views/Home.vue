@@ -8,8 +8,10 @@
             <!-- ... 其他描述性文本 ... -->
         </p>
         <div class="username-input">
-            <label>Please write in your username (no space nor special
-                character):</label>
+            <label
+                >Please write in your username (no space nor special
+                character):</label
+            >
             <input v-model="username" />
         </div>
         <div v-if="username" class="session-message">
@@ -35,14 +37,6 @@
             <button @click="changeSite">Change site!</button>
         </div>
 
-        <!-- Location map placeholder -->
-        <div class="map-section">
-            <h2>Location map</h2>
-            <div class="map-placeholder">
-                <img src="@/assets/map.jpg" class="map" />
-            </div>
-        </div>
-
         <!-- Model inputs section -->
         <div class="model-inputs-section">
             <h2>Model inputs</h2>
@@ -51,29 +45,52 @@
                 <div>
                     <h2>Characteristics:</h2>
                     <div class="input-group">
-                        <label for="waste-per-person">人均垃圾产量 kg/person/day</label>
-                        <input type="number" id="waste-per-person" v-model="perCapitaWaste" step="0.01">
+                        <label for="waste-per-person"
+                            >人均垃圾产量 kg/person/day</label
+                        >
+                        <input
+                            type="number"
+                            id="waste-per-person"
+                            v-model="perCapitaWaste"
+                            step="0.01"
+                        />
                     </div>
 
                     <div class="input-group">
                         <label for="population">人口密度 people</label>
-                        <input type="number" id="population" v-model="populationDensity">
+                        <input
+                            type="number"
+                            id="population"
+                            v-model="populationDensity"
+                        />
                     </div>
 
                     <div class="input-group">
                         <label for="recycling-rate">塑料垃圾所占比例 %</label>
-                        <input type="number" id="recycling-rate" v-model="plasticWasteRatio" step="0.01">
+                        <input
+                            type="number"
+                            id="recycling-rate"
+                            v-model="plasticWasteRatio"
+                            step="0.01"
+                        />
                     </div>
 
                     <div class="input-group">
                         <label for="landfill-rate">管理不当的比例 %</label>
-                        <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01">
+                        <input
+                            type="number"
+                            id="landfill-rate"
+                            v-model="mismanagedRatio"
+                            step="0.01"
+                        />
                     </div>
                 </div>
             </div>
         </div>
         <div class="button-container">
-            <button class="styled-button" @click="sendGetRequest">Run Model</button>
+            <button class="styled-button" @click="sendGetRequest">
+                Run Model
+            </button>
         </div>
         <!-- Model results placeholder -->
         <div class="model-results-section">
@@ -82,13 +99,68 @@
                 <label>塑料入海通量: </label>
                 <span>{{ plasticOceanInflux }} tons</span>
             </div>
+            <div class="map-placeholder">
+                <span
+                    >{{ 0 }} -
+                    {{
+                        parseFloat(maxValue * (1 / 110)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}
+                    -
+                    {{
+                        parseFloat(maxValue * (3 / 110)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{ parseFloat(maxValue * (3 / 110)).toFixed(2) }}
+                    -
+                    {{
+                        parseFloat(maxValue * (5 / 110)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{
+                        parseFloat(maxValue * (5 / 110)).toFixed(2)
+                    }}
+                    -
+                    {{
+                        parseFloat(maxValue * (1 / 11)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{
+                        parseFloat(maxValue * (1 / 11)).toFixed(2)
+                    }}
+                    -
+                    {{
+                        parseFloat(maxValue * (2 / 11)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{
+                        parseFloat(maxValue * (2 / 11)).toFixed(2)
+                    }}
+                    -
+                    {{
+                        parseFloat(maxValue * (4 / 11)).toFixed(2)
+                    }}</span
+                >
+                <span
+                    >{{
+                        parseFloat(maxValue * (4 / 11)).toFixed(2)
+                    }}
+                    - {{ parseFloat(maxValue).toFixed(2) }}</span
+                >
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import Slider from "@vueform/slider";
-import axios from 'axios';
+import axios from "axios";
 
 export default {
     components: {
@@ -105,6 +177,7 @@ export default {
             mismanagedRatio: 0,
             marineEntryProbability: 35,
             plasticOceanInflux: 0,
+            maxValue: 0,
             format: function (value) {
                 return `${value}`;
             },
@@ -115,24 +188,26 @@ export default {
             // Logic to change the site
         },
         sendGetRequest() {
-            axios.get('/api/run/', {
-                params: {
-                    P_input: this.populationDensity,
-                    W_input: this.perCapitaWaste,
-                    PRO_input: this.plasticWasteRatio,
-                    M_input: this.mismanagedRatio,
-                }
-            })
-                .then(response => {
+            axios
+                .get("/api/run/", {
+                    params: {
+                        P_input: this.populationDensity,
+                        W_input: this.perCapitaWaste,
+                        PRO_input: this.plasticWasteRatio,
+                        M_input: this.mismanagedRatio,
+                    },
+                })
+                .then((response) => {
                     // Handle the response from the server
                     console.log(response);
-                    this.plasticOceanInflux = response.data.res
+                    this.plasticOceanInflux = response.data.res;
+                    this.maxValue = response.data.max;
                 })
-                .catch(error => {
+                .catch((error) => {
                     // Handle errors if the request fails
-                    console.error('There was an error!', error);
+                    console.error("There was an error!", error);
                 });
-        }
+        },
     },
 };
 </script>
@@ -211,6 +286,24 @@ h1 {
     align-items: center;
 }
 
+.map-placeholder {
+    height: 700px;
+    padding-left: 204px;
+    padding-top: 437px;
+    background-image: url("../assets/map.jpg");
+    background-size: 950px;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.map-placeholder span {
+    font-family: 'Times New Roman';
+    margin-bottom: -2.8px;
+}
+
 .input-group {
     margin-bottom: 1rem;
 }
@@ -232,7 +325,7 @@ h1 {
 }
 
 .styled-button {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     /* green color to match sliders */
     border: none;
     color: white;
@@ -272,4 +365,5 @@ h1 {
     /* Light grey border */
     box-shadow: inset 0 1px 3px #ddd;
     /* Inner shadow for some depth */
-}</style>
+}
+</style>
