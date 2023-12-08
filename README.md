@@ -3,6 +3,7 @@
 ## Project Setup
 
 ```sh
+只需执行一次
 cnpm install
 ```
 
