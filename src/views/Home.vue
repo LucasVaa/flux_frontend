@@ -84,6 +84,26 @@
                             step="0.01"
                         />
                     </div>
+
+                    <div class="input-group">
+                        <label for="recycling-rate">回收率 %</label>
+                        <input
+                            type="number"
+                            id="recycling-rate"
+                            v-model="recyclingRatio"
+                            step="0.01"
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="incineration-rate">焚烧率 %</label>
+                        <input
+                            type="number"
+                            id="incineration-rate"
+                            v-model="incinerationRatio"
+                            step="0.01"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
@@ -102,57 +122,40 @@
             <div class="map-placeholder">
                 <span
                     >{{ 0 }} -
-                    {{
-                        parseFloat(maxValue * (1 / 110)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}</span
                 >
                 <span
                     >{{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}
                     -
-                    {{
-                        parseFloat(maxValue * (3 / 110)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (3 / 110)).toFixed(2) }}</span
                 >
                 <span
                     >{{ parseFloat(maxValue * (3 / 110)).toFixed(2) }}
                     -
-                    {{
-                        parseFloat(maxValue * (5 / 110)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (5 / 110)).toFixed(2) }}</span
                 >
                 <span
-                    >{{
-                        parseFloat(maxValue * (5 / 110)).toFixed(2)
-                    }}
+                    >{{ parseFloat(maxValue * (5 / 110)).toFixed(2) }}
                     -
-                    {{
-                        parseFloat(maxValue * (1 / 11)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (1 / 11)).toFixed(2) }}</span
                 >
                 <span
-                    >{{
-                        parseFloat(maxValue * (1 / 11)).toFixed(2)
-                    }}
+                    >{{ parseFloat(maxValue * (1 / 11)).toFixed(2) }}
                     -
-                    {{
-                        parseFloat(maxValue * (2 / 11)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (2 / 11)).toFixed(2) }}</span
                 >
                 <span
-                    >{{
-                        parseFloat(maxValue * (2 / 11)).toFixed(2)
-                    }}
+                    >{{ parseFloat(maxValue * (2 / 11)).toFixed(2) }}
                     -
-                    {{
-                        parseFloat(maxValue * (4 / 11)).toFixed(2)
-                    }}</span
+                    {{ parseFloat(maxValue * (4 / 11)).toFixed(2) }}</span
                 >
                 <span
-                    >{{
-                        parseFloat(maxValue * (4 / 11)).toFixed(2)
-                    }}
-                    - {{ parseFloat(maxValue).toFixed(2) }}</span
+                    >{{ parseFloat(maxValue * (4 / 11)).toFixed(2) }} -
+                    {{ parseFloat(maxValue).toFixed(2) }}</span
                 >
+            </div>
+            <div class="sankey">
+                <div id="myDiv" style="width: 600px; height: 250px"></div>
             </div>
         </div>
     </div>
@@ -161,6 +164,7 @@
 <script>
 import Slider from "@vueform/slider";
 import axios from "axios";
+import Plotly from "plotly.js-dist";
 
 export default {
     components: {
@@ -171,13 +175,28 @@ export default {
         return {
             username: "",
             selectedCatchment: "Boreal - Norway",
-            perCapitaWaste: 0,
-            populationDensity: 0,
-            plasticWasteRatio: 0,
-            mismanagedRatio: 0,
+            perCapitaWaste: 1.69,
+            populationDensity: 749325,
+            plasticWasteRatio: 17.5,
+            mismanagedRatio: 0.39,
+            recyclingRatio: 1.85,
+            incinerationRatio: 72,
             marineEntryProbability: 35,
             plasticOceanInflux: 0,
             maxValue: 0,
+            sankey: {
+                PWG: 0,
+                MPW: 0,
+                ER: 0,
+                TOD: 0,
+                ES: 0,
+                S: 0,
+                GCSIN: 0,
+                WTS: 0,
+                GIGP: 0,
+                SLS: 0,
+                RW: 0,
+            },
             format: function (value) {
                 return `${value}`;
             },
@@ -195,6 +214,8 @@ export default {
                         W_input: this.perCapitaWaste,
                         PRO_input: this.plasticWasteRatio,
                         M_input: this.mismanagedRatio,
+                        Re_input: this.recyclingRatio,
+                        I_input: this.incinerationRatio,
                     },
                 })
                 .then((response) => {
@@ -202,6 +223,87 @@ export default {
                     console.log(response);
                     this.plasticOceanInflux = response.data.res;
                     this.maxValue = response.data.max;
+                    this.sankey = response.data.sankey;
+                    var data = {
+                        type: "sankey",
+                        orientation: "h",
+                        node: {
+                            pad: 15,
+                            thickness: 30,
+                            line: {
+                                color: "black",
+                                width: 0.5,
+                            },
+                            label: [
+                                "Mismanaged plastic waste",
+                                "Enter into river",
+                                "Terrestrial leakage & Open-it burning & Dumpsites",
+                                "Enter into sea",
+                                "Sink",
+                                "Plastic waste generation",
+                                "Garbage collector stations in neighborhood",
+                                "Waste transfer station",
+                                "Recycable waste",
+                                "Garbage incineration generation plant",
+                                "Sanitary landfill site",
+                            ],
+                            color: [
+                                "#DAB550",
+                                "#8B4513",
+                                "#90BE91",
+                                "#00008B",
+                                "#BDB71B",
+                                "#F5F5DC",
+                                "#8B4513",
+                                "#8B4513",
+                                "#228B22",
+                                "#000000",
+                                "#DAA520",
+                            ],
+                        },
+
+                        link: {
+                            source: [5, 5, 5, 0, 0, 1, 1, 6, 7, 7],
+                            target: [0, 6, 8, 1, 2, 3, 4, 7, 9, 10],
+                            value: [
+                                this.sankey.MPW,
+                                this.sankey.GCSIN,
+                                this.sankey.RW,
+                                this.sankey.ER,
+                                this.sankey.TOD,
+                                this.sankey.ES,
+                                this.sankey.S,
+                                this.sankey.WTS,
+                                this.sankey.GIGP,
+                                this.sankey.SLS,
+                            ],
+                            color: [
+                                "#DAA520",
+                                "#FFA500",
+                                "#90EE90",
+                                "#4682B4",
+                                "#BDB76B",
+                                "#87CEEB",
+                                "#87CEEB",
+                                "#FFA500",
+                                "#FFD700",
+                                "#FFDEAD",
+                            ],
+                        },
+                    };
+
+                    var data = [data];
+
+                    var layout = {
+                        title: "Waste Flow",
+                        width: 1118,
+                        height: 772,
+                        font: {
+                            size: 10,
+                        },
+                    };
+
+                    Plotly.react("myDiv", data, layout);
                 })
                 .catch((error) => {
                     // Handle errors if the request fails
@@ -209,6 +311,7 @@ export default {
                 });
         },
     },
+    mounted() {},
 };
 </script>
 
@@ -276,7 +379,8 @@ h1 {
 
 .map-placeholder,
 .slider-placeholder,
-.chart-placeholder {
+.chart-placeholder,
+.sankey {
     background-color: #f3f3f3;
     /* height: 200px; */
     border: 1px solid #ddd;
@@ -299,8 +403,15 @@ h1 {
     align-items: flex-start;
 }
 
+.sankey {
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .map-placeholder span {
-    font-family: 'Times New Roman';
+    font-family: "Times New Roman";
     margin-bottom: -2.8px;
 }
 
