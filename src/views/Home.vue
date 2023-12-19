@@ -157,6 +157,9 @@
             <div class="sankey">
                 <div id="myDiv" style="width: 600px; height: 250px"></div>
             </div>
+            <div class="sankey">
+                <div id="enlarge" style="width: 600px; height: 250px"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -304,6 +307,59 @@ export default {
                     };
 
                     Plotly.react("myDiv", data, layout);
+
+                    var dataZoom = {
+                        type: "sankey",
+                        orientation: "h",
+                        node: {
+                            pad: 15,
+                            thickness: 30,
+                            line: {
+                                color: "black",
+                                width: 0.5,
+                            },
+                            label: [
+                                "Mismanaged plastic waste",
+                                "Enter into river",
+                                "Terrestrial leakage & Open-it burning & Dumpsites",
+                                "Enter into sea",
+                                "Sink",
+                            ],
+                            color: [
+                                "#DAB550",
+                                "#8B4513",
+                                "#90BE91",
+                                "#00008B",
+                                "#BDB71B",
+                            ],
+                            x: [0, 0.3, 1, 1, 1],
+                            y: [0, 0.9, 0, 0.9, 1],
+                        },
+
+                        link: {
+                            source: [0, 0, 1, 1],
+                            target: [1, 2, 3, 4],
+                            value: [
+                                this.sankey.ER,
+                                this.sankey.TOD,
+                                this.sankey.ES,
+                                this.sankey.S,
+                            ],
+                            color: ["#FFA500", "#4682B4", "#BDB76B", "#FFDEAD"],
+                        },
+                    };
+
+                    var dataZoom = [dataZoom];
+
+                    var layoutZoom = {
+                        title: "Zoom In",
+                        width: 1118,
+                        height: 772,
+                        font: {
+                            size: 10,
+                        },
+                    };
+                    Plotly.react("enlarge", dataZoom, layoutZoom);
                 })
                 .catch((error) => {
                     // Handle errors if the request fails
