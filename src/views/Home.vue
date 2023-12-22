@@ -157,7 +157,7 @@
             <div class="sankey">
                 <div id="myDiv" style="width: 600px; height: 250px"></div>
             </div>
-            <div class="sankey">
+            <div class="sankey-enlarge">
                 <div id="enlarge" style="width: 600px; height: 250px"></div>
             </div>
         </div>
@@ -251,17 +251,17 @@ export default {
                                 "Sanitary landfill site",
                             ],
                             color: [
-                                "#DAB550",
-                                "#8B4513",
-                                "#90BE91",
-                                "#00008B",
-                                "#BDB71B",
-                                "#F5F5DC",
-                                "#8B4513",
-                                "#8B4513",
-                                "#228B22",
-                                "#000000",
-                                "#DAA520",
+                                "#AADCE0",
+                                "#528FAD",
+                                "#72BCD5",
+                                "#376795",
+                                "#1E466E",
+                                "#E76254",
+                                "#EF8A00",
+                                "#EF8A47",
+                                "#FFE6B7",
+                                "#F7AA58",
+                                "#FFD06F",
                             ],
                         },
 
@@ -281,16 +281,16 @@ export default {
                                 this.sankey.SLS,
                             ],
                             color: [
-                                "#DAA520",
-                                "#FFA500",
-                                "#90EE90",
-                                "#4682B4",
-                                "#BDB76B",
-                                "#87CEEB",
-                                "#87CEEB",
-                                "#FFA500",
-                                "#FFD700",
-                                "#FFDEAD",
+                                "rgba(255, 165, 0, 0.3)",
+                                "rgba(255, 165, 0, 0.3)",
+                                "rgba(255, 165, 0, 0.3)",
+                                "rgba(70, 130, 180, 0.3)",
+                                "rgba(70, 130, 180, 0.3)",
+                                "rgba(135, 206, 235, 0.3)",
+                                "rgba(135, 206, 235, 0.3)",
+                                "rgba(255, 215, 0, 0.3)",
+                                "rgba(255, 222, 173, 0.3)",
+                                "rgba(255, 222, 173, 0.3)",
                             ],
                         },
                     };
@@ -298,11 +298,11 @@ export default {
                     var data = [data];
 
                     var layout = {
-                        title: "Waste Flow",
+                        title: "Plastic Waste Flow",
                         width: 1118,
                         height: 772,
                         font: {
-                            size: 10,
+                            size: 14,
                         },
                     };
 
@@ -326,11 +326,11 @@ export default {
                                 "Sink",
                             ],
                             color: [
-                                "#DAB550",
-                                "#8B4513",
-                                "#90BE91",
+                                "#AADCE0",
+                                "#528FAD",
+                                "#72BCD5",
+                                "#1E466A",
                                 "#00008B",
-                                "#BDB71B",
                             ],
                             x: [0, 0.3, 1, 1, 1],
                             y: [0, 0.9, 0, 0.9, 1],
@@ -345,18 +345,23 @@ export default {
                                 this.sankey.ES,
                                 this.sankey.S,
                             ],
-                            color: ["#FFA500", "#4682B4", "#BDB76B", "#FFDEAD"],
+                            color: [
+                                "rgba(135, 206, 235, 0.3)",
+                                "rgba(135, 206, 235, 0.3)",
+                                "rgba(70, 130, 180, 0.3)",
+                                "rgba(70, 130, 180, 0.3)",
+                            ],
                         },
                     };
 
                     var dataZoom = [dataZoom];
 
                     var layoutZoom = {
-                        title: "Zoom In",
+                        title: "Mismanaged plastic waste flow",
                         width: 1118,
-                        height: 772,
+                        height: 300,
                         font: {
-                            size: 10,
+                            size: 14,
                         },
                     };
                     Plotly.react("enlarge", dataZoom, layoutZoom);
@@ -436,7 +441,8 @@ h1 {
 .map-placeholder,
 .slider-placeholder,
 .chart-placeholder,
-.sankey {
+.sankey,
+.sankey-enlarge {
     background-color: #f3f3f3;
     /* height: 200px; */
     border: 1px solid #ddd;
@@ -461,6 +467,13 @@ h1 {
 
 .sankey {
     height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.sankey-enlarge {
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
