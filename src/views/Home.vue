@@ -407,7 +407,7 @@ h1 {
 
 .map-placeholder {
     height: 700px;
-    padding-left: 204px;
+    padding-left: 83px;
     padding-top: 437px;
     background-image: url("../assets/map.jpg");
     background-size: 950px;
