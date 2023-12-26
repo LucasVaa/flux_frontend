@@ -104,20 +104,12 @@
                             step="0.01"
                         />
                     </div>
+                    <div class="button-container">
+                        <button class="styled-button" @click="sendGetRequest">
+                            Run Model
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="button-container">
-            <button class="styled-button" @click="sendGetRequest">
-                Run Model
-            </button>
-        </div>
-        <!-- Model results placeholder -->
-        <div class="model-results-section">
-            <h2>Model results</h2>
-            <div class="chart-placeholder">
-                <label>塑料入海通量: </label>
-                <span>{{ plasticOceanInflux }} tons</span>
             </div>
             <div class="map-placeholder">
                 <span
@@ -154,11 +146,20 @@
                     {{ parseFloat(maxValue).toFixed(2) }}</span
                 >
             </div>
+        </div>
+
+        <!-- Model results placeholder -->
+        <div class="model-results-section">
+            <h2>Model results</h2>
+            <div class="chart-placeholder">
+                <label>塑料入海通量: </label>
+                <span>{{ plasticOceanInflux }} tons</span>
+            </div>
             <div class="sankey">
-                <div id="myDiv" style="width: 600px; height: 250px"></div>
+                <div id="myDiv" style="width: 500px; height: 250px; float: left;"></div>
             </div>
             <div class="sankey-enlarge">
-                <div id="enlarge" style="width: 600px; height: 250px"></div>
+                <div id="enlarge" style="width: 600px; height: 250px; float: left;"></div>
             </div>
         </div>
     </div>
@@ -227,83 +228,29 @@ export default {
                     this.plasticOceanInflux = response.data.res;
                     this.maxValue = response.data.max;
                     this.sankey = response.data.sankey;
-                    var data = {
-                        type: "sankey",
-                        orientation: "h",
-                        node: {
-                            pad: 15,
-                            thickness: 30,
-                            line: {
-                                color: "black",
-                                width: 0.5,
-                            },
-                            label: [
-                                "Mismanaged plastic waste",
-                                "Enter into river",
-                                "Terrestrial leakage & Open-it burning & Dumpsites",
-                                "Enter into sea",
-                                "Sink",
-                                "Plastic waste generation",
-                                "Garbage collector stations in neighborhood",
-                                "Waste transfer station",
-                                "Recycable waste",
-                                "Garbage incineration generation plant",
-                                "Sanitary landfill site",
-                            ],
-                            color: [
-                                "#AADCE0",
-                                "#528FAD",
-                                "#72BCD5",
-                                "#376795",
-                                "#1E466E",
-                                "#E76254",
-                                "#EF8A00",
-                                "#EF8A47",
-                                "#FFE6B7",
-                                "#F7AA58",
-                                "#FFD06F",
-                            ],
-                        },
 
-                        link: {
-                            source: [5, 5, 5, 0, 0, 1, 1, 6, 7, 7],
-                            target: [0, 6, 8, 1, 2, 3, 4, 7, 9, 10],
-                            value: [
-                                this.sankey.MPW,
+                    var data = [
+                        {
+                            values: [
                                 this.sankey.GCSIN,
-                                this.sankey.RW,
-                                this.sankey.ER,
-                                this.sankey.TOD,
-                                this.sankey.ES,
-                                this.sankey.S,
-                                this.sankey.WTS,
-                                this.sankey.GIGP,
                                 this.sankey.SLS,
+                                this.sankey.MPW,
+                                this.sankey.RW,
                             ],
-                            color: [
-                                "rgba(255, 165, 0, 0.3)",
-                                "rgba(255, 165, 0, 0.3)",
-                                "rgba(255, 165, 0, 0.3)",
-                                "rgba(70, 130, 180, 0.3)",
-                                "rgba(70, 130, 180, 0.3)",
-                                "rgba(135, 206, 235, 0.3)",
-                                "rgba(135, 206, 235, 0.3)",
-                                "rgba(255, 215, 0, 0.3)",
-                                "rgba(255, 222, 173, 0.3)",
-                                "rgba(255, 222, 173, 0.3)",
+                            labels: [
+                                "Garbage collector stations in neighborhood",
+                                "Sanitary landfill site",
+                                "Mismanaged plastic waste",
+                                "Recycable waste",
                             ],
+                            type: "pie",
                         },
-                    };
-
-                    var data = [data];
+                    ];
 
                     var layout = {
-                        title: "Plastic Waste Flow",
-                        width: 1118,
-                        height: 772,
-                        font: {
-                            size: 14,
-                        },
+                        title: "Plastic waste flow(tons)",
+                        height: 300,
+                        width: 500,
                     };
 
                     Plotly.react("myDiv", data, layout);
@@ -358,7 +305,7 @@ export default {
 
                     var layoutZoom = {
                         title: "Mismanaged plastic waste flow",
-                        width: 1118,
+                        width: 600,
                         height: 300,
                         font: {
                             size: 14,
@@ -443,13 +390,19 @@ h1 {
 .chart-placeholder,
 .sankey,
 .sankey-enlarge {
-    background-color: #f3f3f3;
+    /* background-color: #f3f3f3; */
     /* height: 200px; */
-    border: 1px solid #ddd;
+    border: solid #ddd;
+    border-width: 0 1px 0 1px;
     border-radius: 4px;
     display: flex;
     padding: 20px 20px 20px 20px;
     align-items: center;
+}
+
+.slider-placeholder {
+    height: 700px;
+    float: left;
 }
 
 .map-placeholder {
@@ -466,14 +419,13 @@ h1 {
 }
 
 .sankey {
-    height: 800px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    float: left;
 }
 
 .sankey-enlarge {
-    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
