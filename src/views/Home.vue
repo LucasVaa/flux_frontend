@@ -4,7 +4,23 @@
     <div class="container">
         <h1>Catchment plastic modelling - INCA-Microplastics</h1>
         <p class="description">
-            This is a demonstration page for the INCA-Microplastics model...
+            With the annual increase of plastic production, a growing number of
+            plastic products are being used in people’s daily life. Therefore, a
+            great number of global plastic waste production are estimated by
+            statistics. However, these plastic wastes emit into rivers and
+            subsequently into oceans through the effect of downpour or wind,
+            which will pose a threat to marine environmental protection. What’s
+            more, due to the large influx of tourists, tourism cities may
+            encounter more serious problems. S city is a worldwide well-known
+            tourism city with over ten million tourists every year. Here, taking
+            S river catchment as our study area, we found the obvious
+            tourism-driven seasonal variation of land-based emissions of
+            plastic. Plastic emission contribution of different population type
+            was also analyzed. Besides, the hot-spot regions that are likely to
+            emit plastic into ocean were also found by conducting geographically
+            analysis with population distribution and the probability for
+            plastic waste to reach the nearest river for every cell, which is
+            crucial for formulating mitigation strategies.
             <!-- ... 其他描述性文本 ... -->
         </p>
         <div class="username-input">
@@ -43,7 +59,6 @@
             <!-- Slider placeholder -->
             <div class="slider-placeholder">
                 <div>
-                    <h2>Characteristics:</h2>
                     <div class="input-group">
                         <label for="waste-per-person"
                             >人均垃圾产量 kg/person/day</label
@@ -57,11 +72,35 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="population">人口密度 people</label>
+                        <label for="yearround-residents"
+                            >常住人口数量 people</label
+                        >
                         <input
                             type="number"
-                            id="population"
-                            v-model="populationDensity"
+                            id="yearround-residents"
+                            v-model="yearroundresidents"
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="seasonal-residents"
+                            >候鸟游客数量 people</label
+                        >
+                        <input
+                            type="number"
+                            id="seasonal-residents"
+                            v-model="seasonalresidents"
+                        />
+                    </div>
+
+                    <div class="input-group">
+                        <label for="overnight-tourists"
+                            >过夜游客数量 people</label
+                        >
+                        <input
+                            type="number"
+                            id="overnight-tourists"
+                            v-model="overnighttourists"
                         />
                     </div>
 
@@ -71,7 +110,6 @@
                             type="number"
                             id="recycling-rate"
                             v-model="plasticWasteRatio"
-                            step="0.01"
                         />
                     </div>
 
@@ -156,12 +194,48 @@
                 <span>{{ plasticOceanInflux }} tons</span>
             </div>
             <div class="sankey">
-                <div id="myDiv" style="width: 500px; height: 250px; float: left;"></div>
+                <div
+                    id="myDiv"
+                    style="width: 500px; height: 250px; float: left"
+                ></div>
             </div>
             <div class="sankey-enlarge">
-                <div id="enlarge" style="width: 600px; height: 250px; float: left;"></div>
+                <div
+                    id="enlarge"
+                    style="width: 600px; height: 250px; float: left"
+                ></div>
             </div>
         </div>
+
+        <div class="model-results-section">
+            <div class="sankey-bar">
+                <div id="bar"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <p class="description">
+            This is a demonstration page for the INCA-Microplastics model...With
+            the annual increase of plastic production, a growing number of
+            plastic products are being used in people’s daily life. Therefore, a
+            great number of global plastic waste production are estimated by
+            statistics. However, these plastic wastes emit into rivers and
+            subsequently into oceans through the effect of downpour or wind,
+            which will pose a threat to marine environmental protection. What’s
+            more, due to the large influx of tourists, tourism cities may
+            encounter more serious problems. S city is a worldwide well-known
+            tourism city with over ten million tourists every year. Here, taking
+            S river catchment as our study area, we found the obvious
+            tourism-driven seasonal variation of land-based emissions of
+            plastic. Plastic emission contribution of different population type
+            was also analyzed. Besides, the hot-spot regions that are likely to
+            emit plastic into ocean were also found by conducting geographically
+            analysis with population distribution and the probability for
+            plastic waste to reach the nearest river for every cell, which is
+            crucial for formulating mitigation strategies.
+            <!-- ... 其他描述性文本 ... -->
+        </p>
+        <!-- ... 其他内容 ... -->
     </div>
 </template>
 
@@ -181,6 +255,9 @@ export default {
             selectedCatchment: "Boreal - Norway",
             perCapitaWaste: 1.69,
             populationDensity: 749325,
+            yearroundresidents: 749325,
+            seasonalresidents: 836071,
+            overnighttourists: 8642009,
             plasticWasteRatio: 17.5,
             mismanagedRatio: 0.39,
             recyclingRatio: 1.85,
@@ -201,6 +278,7 @@ export default {
                 SLS: 0,
                 RW: 0,
             },
+            bar: 0,
             format: function (value) {
                 return `${value}`;
             },
@@ -214,7 +292,9 @@ export default {
             axios
                 .get("/api/run/", {
                     params: {
-                        P_input: this.populationDensity,
+                        P1_1_input: this.yearroundresidents,
+                        P1_2_input: this.seasonalresidents,
+                        P1_3_input: this.overnighttourists,
                         W_input: this.perCapitaWaste,
                         PRO_input: this.plasticWasteRatio,
                         M_input: this.mismanagedRatio,
@@ -228,17 +308,18 @@ export default {
                     this.plasticOceanInflux = response.data.res;
                     this.maxValue = response.data.max;
                     this.sankey = response.data.sankey;
+                    this.bar = response.data.bar;
 
                     var data = [
                         {
                             values: [
-                                this.sankey.GCSIN,
+                                this.sankey.GIGP,
                                 this.sankey.SLS,
                                 this.sankey.MPW,
                                 this.sankey.RW,
                             ],
                             labels: [
-                                "Garbage collector stations in neighborhood",
+                                "Garbage incineration generation plant",
                                 "Sanitary landfill site",
                                 "Mismanaged plastic waste",
                                 "Recycable waste",
@@ -304,7 +385,7 @@ export default {
                     var dataZoom = [dataZoom];
 
                     var layoutZoom = {
-                        title: "Mismanaged plastic waste flow",
+                        title: "Mismanaged plastic waste flow(tons)",
                         width: 600,
                         height: 300,
                         font: {
@@ -312,6 +393,197 @@ export default {
                         },
                     };
                     Plotly.react("enlarge", dataZoom, layoutZoom);
+
+                    var xAis = [
+                        "January",
+                        "February",
+                        "March",
+                        "April",
+                        "May",
+                        "June",
+                        "July",
+                        "August",
+                        "September",
+                        "October",
+                        "November",
+                        "December",
+                    ];
+
+                    var YR = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_YR,
+                            this.bar.FEB.FEB_YR,
+                            this.bar.MAR.MAR_YR,
+                            this.bar.APR.APR_YR,
+                            this.bar.MAY.MAY_YR,
+                            this.bar.JUN.JUN_YR,
+                            this.bar.JUL.JUL_YR,
+                            this.bar.AUG.AUG_YR,
+                            this.bar.SEPT.SEPT_YR,
+                            this.bar.OCT.OCT_YR,
+                            this.bar.NOV.NOV_YR,
+                            this.bar.DEC.DEC_YR,
+                        ],
+                        name: "YR",
+                        type: "bar",
+                    };
+
+                    var SR = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_SR,
+                            this.bar.FEB.FEB_SR,
+                            this.bar.MAR.MAR_SR,
+                            this.bar.APR.APR_SR,
+                            this.bar.MAY.MAY_SR,
+                            this.bar.JUN.JUN_SR,
+                            this.bar.JUL.JUL_SR,
+                            this.bar.AUG.AUG_SR,
+                            this.bar.SEPT.SEPT_SR,
+                            this.bar.OCT.OCT_SR,
+                            this.bar.NOV.NOV_SR,
+                            this.bar.DEC.DEC_SR,
+                        ],
+                        name: "SR",
+                        type: "bar",
+                    };
+
+                    var OT = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_OT,
+                            this.bar.FEB.FEB_OT,
+                            this.bar.MAR.MAR_OT,
+                            this.bar.APR.APR_OT,
+                            this.bar.MAY.MAY_OT,
+                            this.bar.JUN.JUN_OT,
+                            this.bar.JUL.JUL_OT,
+                            this.bar.AUG.AUG_OT,
+                            this.bar.SEPT.SEPT_OT,
+                            this.bar.OCT.OCT_OT,
+                            this.bar.NOV.NOV_OT,
+                            this.bar.DEC.DEC_OT,
+                        ],
+                        name: "OT",
+                        type: "bar",
+                    };
+
+                    var CL = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_CL,
+                            this.bar.FEB.FEB_CL,
+                            this.bar.MAR.MAR_CL,
+                            this.bar.APR.APR_CL,
+                            this.bar.MAY.MAY_CL,
+                            this.bar.JUN.JUN_CL,
+                            this.bar.JUL.JUL_CL,
+                            this.bar.AUG.AUG_CL,
+                            this.bar.SEPT.SEPT_CL,
+                            this.bar.OCT.OCT_CL,
+                            this.bar.NOV.NOV_CL,
+                            this.bar.DEC.DEC_CL,
+                        ],
+                        name: "CL",
+                        type: "bar",
+                    };
+
+                    var F = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_F,
+                            this.bar.FEB.FEB_F,
+                            this.bar.MAR.MAR_F,
+                            this.bar.APR.APR_F,
+                            this.bar.MAY.MAY_F,
+                            this.bar.JUN.JUN_F,
+                            this.bar.JUL.JUL_F,
+                            this.bar.AUG.AUG_F,
+                            this.bar.SEPT.SEPT_F,
+                            this.bar.OCT.OCT_F,
+                            this.bar.NOV.NOV_F,
+                            this.bar.DEC.DEC_F,
+                        ],
+                        name: "F",
+                        type: "bar",
+                    };
+
+                    var GL = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_GL,
+                            this.bar.FEB.FEB_GL,
+                            this.bar.MAR.MAR_GL,
+                            this.bar.APR.APR_GL,
+                            this.bar.MAY.MAY_GL,
+                            this.bar.JUN.JUN_GL,
+                            this.bar.JUL.JUL_GL,
+                            this.bar.AUG.AUG_GL,
+                            this.bar.SEPT.SEPT_GL,
+                            this.bar.OCT.OCT_GL,
+                            this.bar.NOV.NOV_GL,
+                            this.bar.DEC.DEC_GL,
+                        ],
+                        name: "GL",
+                        type: "bar",
+                    };
+
+                    var BL = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_BL,
+                            this.bar.FEB.FEB_BL,
+                            this.bar.MAR.MAR_BL,
+                            this.bar.APR.APR_BL,
+                            this.bar.MAY.MAY_BL,
+                            this.bar.JUN.JUN_BL,
+                            this.bar.JUL.JUL_BL,
+                            this.bar.AUG.AUG_BL,
+                            this.bar.SEPT.SEPT_BL,
+                            this.bar.OCT.OCT_BL,
+                            this.bar.NOV.NOV_BL,
+                            this.bar.DEC.DEC_BL,
+                        ],
+                        name: "BL",
+                        type: "bar",
+                    };
+
+                    var sum = {
+                        x: xAis,
+                        y: [
+                            this.bar.JAN.JAN_SUM,
+                            this.bar.FEB.FEB_SUM,
+                            this.bar.MAR.MAR_SUM,
+                            this.bar.APR.APR_SUM,
+                            this.bar.MAY.MAY_SUM,
+                            this.bar.JUN.JUN_SUM,
+                            this.bar.JUL.JUL_SUM,
+                            this.bar.AUG.AUG_SUM,
+                            this.bar.SEPT.SEPT_SUM,
+                            this.bar.OCT.OCT_SUM,
+                            this.bar.NOV.NOV_SUM,
+                            this.bar.DEC.DEC_SUM,
+                        ],
+                        name: "sum",
+                        type: 'scatter'
+                    }
+
+                    var barData = [YR, SR, OT, CL, F, GL, BL, sum];
+
+                    console.log(barData)
+
+                    var barLayout = {
+                        title: "The contribution of plastic emission flux of different population types and the total monthly plastic emission flux",
+                        // width: 600,
+                        // height: 300,
+                        font: {
+                            size: 14,
+                        },
+                        barmode: "stack",
+                    };
+
+                    Plotly.react("bar", barData, barLayout);
                 })
                 .catch((error) => {
                     // Handle errors if the request fails
@@ -389,7 +661,7 @@ h1 {
 .slider-placeholder,
 .chart-placeholder,
 .sankey,
-.sankey-enlarge {
+.sankey-enlarge .sankey-bar {
     /* background-color: #f3f3f3; */
     /* height: 200px; */
     border: solid #ddd;
@@ -434,6 +706,7 @@ h1 {
 .map-placeholder span {
     font-family: "Times New Roman";
     margin-bottom: -2.8px;
+    color: #ffffff;
 }
 
 .input-group {
