@@ -596,7 +596,7 @@ export default {
                             side: "right",
                         },
                         legend: {
-                            x: 1.05
+                            x: 1.08
                         },
                     };
 
