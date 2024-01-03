@@ -2,25 +2,15 @@
 
 <template>
     <div class="container">
-        <h1>Catchment plastic modelling - INCA-Microplastics</h1>
+        <h1>Catchment plastic modelling </h1>
         <p class="description">
-            With the annual increase of plastic production, a growing number of
-            plastic products are being used in people’s daily life. Therefore, a
-            great number of global plastic waste production are estimated by
-            statistics. However, these plastic wastes emit into rivers and
-            subsequently into oceans through the effect of downpour or wind,
-            which will pose a threat to marine environmental protection. What’s
-            more, due to the large influx of tourists, tourism cities may
-            encounter more serious problems. S city is a worldwide well-known
-            tourism city with over ten million tourists every year. Here, taking
-            S river catchment as our study area, we found the obvious
-            tourism-driven seasonal variation of land-based emissions of
-            plastic. Plastic emission contribution of different population type
-            was also analyzed. Besides, the hot-spot regions that are likely to
-            emit plastic into ocean were also found by conducting geographically
-            analysis with population distribution and the probability for
-            plastic waste to reach the nearest river for every cell, which is
-            crucial for formulating mitigation strategies.
+            Herein, we took Sanya river catchment in China as the target study area, established an integrated socio-economic and topographic
+            approach to modeling plastic transport from catchment to sea. Sanya river catchment is located in Sanya city, which is a world-renowned 
+            tourism city with tens of millions of tourists every year. By analyzing the seasonal fluctuation of the amount of tourists and combining 
+            with the features in each land use type, we summarized the seasonal variation characteristics of plastic emission flux into ocean. 
+            Meanwhile, the hot-spot plastic transportation areas were also found. By using a top to down method, the plastic waste flow in study 
+            area was also quantified. This model is helpful for local authorities to formulate more targeted plastic pollution mitigation policies.
+            It also bridges a significant knowledge gap in the context of tourism cities, offering substantial practical value.
             <!-- ... 其他描述性文本 ... -->
         </p>
         <div class="username-input">
@@ -34,7 +24,7 @@
             <p>Session loaded</p>
         </div>
         <p class="description">
-            Welcome to our INCA-microplastic demonstration tool,
+            Welcome to our plastic demonstration tool,
             {{ username }}!
         </p>
         <!-- ... 其他内容 ... -->
@@ -61,7 +51,7 @@
                 <div>
                     <div class="input-group">
                         <label for="waste-per-person"
-                            >人均垃圾产量 kg/person/day</label
+                            >Waste Generation [kg/(person·day)]</label
                         >
                         <input
                             type="number"
@@ -73,7 +63,7 @@
 
                     <div class="input-group">
                         <label for="yearround-residents"
-                            >常住人口数量 people</label
+                            >Year-round Residents (people)</label
                         >
                         <input
                             type="number"
@@ -84,7 +74,7 @@
 
                     <div class="input-group">
                         <label for="seasonal-residents"
-                            >候鸟游客数量 people</label
+                            >Seasonal Residents (people)</label
                         >
                         <input
                             type="number"
@@ -95,7 +85,7 @@
 
                     <div class="input-group">
                         <label for="overnight-tourists"
-                            >过夜游客数量 people</label
+                            >Overnight Tourists (people)</label
                         >
                         <input
                             type="number"
@@ -105,7 +95,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="recycling-rate">塑料垃圾所占比例 %</label>
+                        <label for="recycling-rate">Proportion of Plastic Waste (%)</label>
                         <input
                             type="number"
                             id="recycling-rate"
@@ -114,7 +104,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="landfill-rate">管理不当的比例 %</label>
+                        <label for="landfill-rate">Mismanaged waste (%)</label>
                         <input
                             type="number"
                             id="landfill-rate"
@@ -124,7 +114,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="recycling-rate">回收率 %</label>
+                        <label for="recycling-rate">Recycling rate (%)</label>
                         <input
                             type="number"
                             id="recycling-rate"
@@ -134,7 +124,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="incineration-rate">焚烧率 %</label>
+                        <label for="incineration-rate">Incineration rate (%)</label>
                         <input
                             type="number"
                             id="incineration-rate"
@@ -190,7 +180,7 @@
         <div class="model-results-section">
             <h2>Model results</h2>
             <div class="chart-placeholder">
-                <label>塑料入海通量: </label>
+                <label>Total plastic emission flux: </label>
                 <span>{{ plasticOceanInflux }} tons</span>
             </div>
             <div class="sankey">
@@ -212,30 +202,6 @@
                 <div id="bar"></div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <p class="description">
-            This is a demonstration page for the INCA-Microplastics model...With
-            the annual increase of plastic production, a growing number of
-            plastic products are being used in people’s daily life. Therefore, a
-            great number of global plastic waste production are estimated by
-            statistics. However, these plastic wastes emit into rivers and
-            subsequently into oceans through the effect of downpour or wind,
-            which will pose a threat to marine environmental protection. What’s
-            more, due to the large influx of tourists, tourism cities may
-            encounter more serious problems. S city is a worldwide well-known
-            tourism city with over ten million tourists every year. Here, taking
-            S river catchment as our study area, we found the obvious
-            tourism-driven seasonal variation of land-based emissions of
-            plastic. Plastic emission contribution of different population type
-            was also analyzed. Besides, the hot-spot regions that are likely to
-            emit plastic into ocean were also found by conducting geographically
-            analysis with population distribution and the probability for
-            plastic waste to reach the nearest river for every cell, which is
-            crucial for formulating mitigation strategies.
-            <!-- ... 其他描述性文本 ... -->
-        </p>
-        <!-- ... 其他内容 ... -->
     </div>
 </template>
 
@@ -327,16 +293,16 @@ export default {
                             texttemplate: "%{percent:.4f}",
                             type: "pie",
                             textinfo: "percent", // 只顯示百分比
-                            hoverinfo: "label+percent", // 懸停時顯示標籤和百分比
-                            hovertemplate:
-                                "%{label}: %{percent:.2f}<extra></extra>", // 格式化懸停信息
+                            hovertemplate: "%{label}: %{value} tons (%{percent:.2%})<extra></extra>", // Custom hover text
+              
+
                         },
                     ];
 
                     var layout = {
-                        title: "Plastic waste flow(tons)",
+                        title: "Plastic Waste Destination",
                         height: 300,
-                        width: 500,
+                        width: 600,
                         template: ".2f",
                     };
 
@@ -368,6 +334,8 @@ export default {
                             ],
                             x: [0, 0.3, 1, 1, 1],
                             y: [0, 0.9, 0, 0.9, 1],
+                            hoverinfo: 'all',
+                            hovertemplate: '%{label}<br>Value: %{value} tons<extra></extra>', // Custom hover text for nodes
                         },
 
                         link: {
@@ -385,13 +353,15 @@ export default {
                                 "rgba(70, 130, 180, 0.3)",
                                 "rgba(70, 130, 180, 0.3)",
                             ],
+                            hoverinfo: 'all', // or you can use 'none' to hide hover info
+                            hovertemplate: 'Value: %{value} tons<extra></extra>', // Custom hover text for links
                         },
                     };
 
                     var dataZoom = [dataZoom];
 
                     var layoutZoom = {
-                        title: "Mismanaged plastic waste flow(tons)",
+                        title: "Mismanaged plastic waste flow",
                         width: 600,
                         height: 300,
                         font: {
@@ -431,8 +401,11 @@ export default {
                             this.bar.NOV.NOV_YR,
                             this.bar.DEC.DEC_YR,
                         ],
-                        name: "YR",
+                        name: "Year-round Residents",
                         type: "bar",
+                        marker: {
+                            color: "rgb(70,130,180,0.5)",
+                        },
                     };
 
                     var SR = {
@@ -451,8 +424,11 @@ export default {
                             this.bar.NOV.NOV_SR,
                             this.bar.DEC.DEC_SR,
                         ],
-                        name: "SR",
+                        name: "Seasonal Residents",
                         type: "bar",
+                        marker: {
+                            color: "rgb(30,144,255,0.5)",
+                        },
                     };
 
                     var OT = {
@@ -471,8 +447,11 @@ export default {
                             this.bar.NOV.NOV_OT,
                             this.bar.DEC.DEC_OT,
                         ],
-                        name: "OT",
+                        name: "Overnight Tourists",
                         type: "bar",
+                        marker: {
+                            color: "rgb(135,206,235,0.5)",
+                        },
                     };
 
                     var CL = {
@@ -491,8 +470,11 @@ export default {
                             this.bar.NOV.NOV_CL,
                             this.bar.DEC.DEC_CL,
                         ],
-                        name: "CL",
+                        name: "Cultivated Land",
                         type: "bar",
+                        marker: {
+                            color: "rgb(255,250,205,0.5)",
+                        },
                     };
 
                     var F = {
@@ -511,8 +493,11 @@ export default {
                             this.bar.NOV.NOV_F,
                             this.bar.DEC.DEC_F,
                         ],
-                        name: "F",
+                        name: "Forest",
                         type: "bar",
+                        marker: {
+                            color: "rgb(189,183,107,0.5)",
+                        },
                     };
 
                     var GL = {
@@ -531,8 +516,11 @@ export default {
                             this.bar.NOV.NOV_GL,
                             this.bar.DEC.DEC_GL,
                         ],
-                        name: "GL",
+                        name: "Grass Land",
                         type: "bar",
+                        marker: {
+                            color: "rgb(128,128,0,0.5)",
+                        },
                     };
 
                     var BL = {
@@ -551,8 +539,11 @@ export default {
                             this.bar.NOV.NOV_BL,
                             this.bar.DEC.DEC_BL,
                         ],
-                        name: "BL",
+                        name: "Bareland",
                         type: "bar",
+                        marker: {
+                            color: "rgba(139,69,19,0.5)",
+                        },
                     };
 
                     var sum = {
