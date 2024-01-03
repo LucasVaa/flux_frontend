@@ -324,7 +324,12 @@ export default {
                                 "Mismanaged plastic waste",
                                 "Recycable waste",
                             ],
+                            texttemplate: "%{percent:.4f}",
                             type: "pie",
+                            textinfo: "percent", // 只顯示百分比
+                            hoverinfo: "label+percent", // 懸停時顯示標籤和百分比
+                            hovertemplate:
+                                "%{label}: %{percent:.2f}<extra></extra>", // 格式化懸停信息
                         },
                     ];
 
@@ -332,6 +337,7 @@ export default {
                         title: "Plastic waste flow(tons)",
                         height: 300,
                         width: 500,
+                        template: ".2f",
                     };
 
                     Plotly.react("myDiv", data, layout);
@@ -565,22 +571,29 @@ export default {
                             this.bar.NOV.NOV_SUM,
                             this.bar.DEC.DEC_SUM,
                         ],
+                        marker: {
+                            color: "rgb(219, 64, 82)",
+                        },
                         name: "sum",
-                        type: 'scatter'
-                    }
+                        type: "scatter",
+                        yaxis: "y2",
+                    };
 
                     var barData = [YR, SR, OT, CL, F, GL, BL, sum];
 
-                    console.log(barData)
-
                     var barLayout = {
                         title: "The contribution of plastic emission flux of different population types and the total monthly plastic emission flux",
-                        // width: 600,
-                        // height: 300,
                         font: {
                             size: 14,
                         },
                         barmode: "stack",
+                        yaxis2: {
+                            overlaying: "y",
+                            side: "right",
+                        },
+                        legend: {
+                            x: 1.05
+                        },
                     };
 
                     Plotly.react("bar", barData, barLayout);
