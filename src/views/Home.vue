@@ -2,15 +2,22 @@
 
 <template>
     <div class="container">
-        <h1>Catchment plastic modelling </h1>
+        <h1>Catchment plastic modelling</h1>
         <p class="description">
-            Herein, we took Sanya river catchment in China as the target study area, established an integrated socio-economic and topographic
-            approach to modeling plastic transport from catchment to sea. Sanya river catchment is located in Sanya city, which is a world-renowned 
-            tourism city with tens of millions of tourists every year. By analyzing the seasonal fluctuation of the amount of tourists and combining 
-            with the features in each land use type, we summarized the seasonal variation characteristics of plastic emission flux into ocean. 
-            Meanwhile, the hot-spot plastic transportation areas were also found. By using a top to down method, the plastic waste flow in study 
-            area was also quantified. This model is helpful for local authorities to formulate more targeted plastic pollution mitigation policies.
-            It also bridges a significant knowledge gap in the context of tourism cities, offering substantial practical value.
+            Herein, we took Sanya river catchment in China as the target study
+            area, established an integrated socio-economic and topographic
+            approach to modeling plastic transport from catchment to sea. Sanya
+            river catchment is located in Sanya city, which is a world-renowned
+            tourism city with tens of millions of tourists every year. By
+            analyzing the seasonal fluctuation of the amount of tourists and
+            combining with the features in each land use type, we summarized the
+            seasonal variation characteristics of plastic emission flux into
+            ocean. Meanwhile, the hot-spot plastic transportation areas were
+            also found. By using a top to down method, the plastic waste flow in
+            study area was also quantified. This model is helpful for local
+            authorities to formulate more targeted plastic pollution mitigation
+            policies. It also bridges a significant knowledge gap in the context
+            of tourism cities, offering substantial practical value.
             <!-- ... 其他描述性文本 ... -->
         </p>
         <div class="username-input">
@@ -95,7 +102,9 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="recycling-rate">Proportion of Plastic Waste (%)</label>
+                        <label for="recycling-rate"
+                            >Proportion of Plastic Waste (%)</label
+                        >
                         <input
                             type="number"
                             id="recycling-rate"
@@ -124,7 +133,9 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="incineration-rate">Incineration rate (%)</label>
+                        <label for="incineration-rate"
+                            >Incineration rate (%)</label
+                        >
                         <input
                             type="number"
                             id="incineration-rate"
@@ -292,18 +303,19 @@ export default {
                             ],
                             texttemplate: "%{percent:.4f}",
                             type: "pie",
-                            textinfo: "percent", // 只顯示百分比
-                            hovertemplate: "%{label}: %{value} tons (%{percent:.2%})<extra></extra>", // Custom hover text
-              
-
+                            hovertemplate:
+                                "%{label}: %{value} tons (%{percent:.2%})<extra></extra>", // Custom hover text
+                            textposition: "auto",
                         },
                     ];
 
                     var layout = {
                         title: "Plastic Waste Destination",
                         height: 300,
-                        width: 600,
-                        template: ".2f",
+                        width: 500,
+                        font: {
+                            size: 14,
+                        }
                     };
 
                     Plotly.react("myDiv", data, layout);
@@ -334,8 +346,9 @@ export default {
                             ],
                             x: [0, 0.3, 1, 1, 1],
                             y: [0, 0.9, 0, 0.9, 1],
-                            hoverinfo: 'all',
-                            hovertemplate: '%{label}<br>Value: %{value} tons<extra></extra>', // Custom hover text for nodes
+                            hoverinfo: "all",
+                            hovertemplate:
+                                "%{label}<br>Value: %{value} tons<extra></extra>", // Custom hover text for nodes
                         },
 
                         link: {
@@ -353,8 +366,9 @@ export default {
                                 "rgba(70, 130, 180, 0.3)",
                                 "rgba(70, 130, 180, 0.3)",
                             ],
-                            hoverinfo: 'all', // or you can use 'none' to hide hover info
-                            hovertemplate: 'Value: %{value} tons<extra></extra>', // Custom hover text for links
+                            hoverinfo: "all", // or you can use 'none' to hide hover info
+                            hovertemplate:
+                                "Value: %{value} tons<extra></extra>", // Custom hover text for links
                         },
                     };
 
@@ -579,7 +593,7 @@ export default {
                         },
                         barmode: "stack",
                         yaxis1: {
-                            title: "Contribution (%)"
+                            title: "Contribution (%)",
                         },
                         yaxis2: {
                             title: "Emission flux (tons)",
@@ -587,7 +601,7 @@ export default {
                             side: "right",
                         },
                         legend: {
-                            x: 1.08
+                            x: 1.08,
                         },
                     };
 
@@ -678,6 +692,12 @@ h1 {
     display: flex;
     padding: 20px 20px 20px 20px;
     align-items: center;
+}
+
+.chart-placeholder {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
 }
 
 .slider-placeholder {
