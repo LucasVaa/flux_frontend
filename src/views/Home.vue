@@ -587,7 +587,11 @@ export default {
                             size: 14,
                         },
                         barmode: "stack",
+                        yaxis1: {
+                            title: "Contribution (%)"
+                        },
                         yaxis2: {
+                            title: "Emission flux (tons)",
                             overlaying: "y",
                             side: "right",
                         },
