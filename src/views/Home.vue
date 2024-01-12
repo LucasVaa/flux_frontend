@@ -18,38 +18,10 @@
             authorities to formulate more targeted plastic pollution mitigation
             policies. It also bridges a significant knowledge gap in the context
             of tourism cities, offering substantial practical value.
-            <!-- ... 其他描述性文本 ... -->
-        </p>
-        <div class="username-input">
-            <label
-                >Please write in your username (no space nor special
-                character):</label
-            >
-            <input v-model="username" />
-        </div>
-        <div v-if="username" class="session-message">
-            <p>Session loaded</p>
-        </div>
-        <p class="description">
-            Welcome to our plastic demonstration tool,
-            {{ username }}!
         </p>
         <!-- ... 其他内容 ... -->
     </div>
     <div class="page-section">
-        <!-- Catchment selection section -->
-        <div class="catchment-section">
-            <label>Which type of catchment would you like to work with?</label>
-            <select v-model="selectedCatchment">
-                <option value="area1">地点一</option>
-                <option value="area2">地点二</option>
-                <option value="area3">地点三</option>
-                <!-- Add more options as needed -->
-            </select>
-            <p>You selected: {{ selectedCatchment }}!</p>
-            <button @click="changeSite">Change site!</button>
-        </div>
-
         <!-- Model inputs section -->
         <div class="model-inputs-section">
             <h2>Model inputs</h2>
@@ -333,7 +305,7 @@ export default {
                             label: [
                                 "Mismanaged plastic waste",
                                 "Enter into river",
-                                "Terrestrial leakage & Open-it burning & Dumpsites",
+                                "Terrestrial leakage & <br> Open-it burning & Dumpsites",
                                 "Enter into sea",
                                 "Sink",
                             ],
@@ -345,7 +317,7 @@ export default {
                                 "#00008B",
                             ],
                             x: [0, 0.3, 1, 1, 1],
-                            y: [0, 0.9, 0, 0.9, 1],
+                            y: [0, 0.9, 0.1, 0.9, 1],
                             hoverinfo: "all",
                             hovertemplate:
                                 "%{label}<br>Value: %{value} tons<extra></extra>", // Custom hover text for nodes
@@ -621,7 +593,7 @@ export default {
 <style scoped>
 .container {
     width: 100%;
-    margin-top: 80px;
+    /* margin-top: 80px; */
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -683,7 +655,8 @@ h1 {
 .slider-placeholder,
 .chart-placeholder,
 .sankey,
-.sankey-enlarge .sankey-bar {
+.sankey-enlarge 
+.sankey-bar {
     /* background-color: #f3f3f3; */
     /* height: 200px; */
     border: solid #ddd;
@@ -729,6 +702,8 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    border: solid #ddd;
+    border-width: 0 1px 0 1px;
 }
 
 .map-placeholder span {
