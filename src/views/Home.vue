@@ -301,7 +301,7 @@ export default {
                                 "Mismanaged plastic waste",
                                 "Recycable waste",
                             ],
-                            texttemplate: "%{percent:.4f}",
+                            texttemplate: "%{percent:.0%}",
                             type: "pie",
                             hovertemplate:
                                 "%{label}: %{value} tons (%{percent:.2%})<extra></extra>", // Custom hover text
