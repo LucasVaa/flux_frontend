@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </div>
-            <div class="map-placeholder">
+            <div id="map-placeholder" class="map-placeholder">
                 <span
                     >{{ 0 }} -
                     {{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}</span
@@ -192,6 +192,11 @@
 import Slider from "@vueform/slider";
 import axios from "axios";
 import Plotly from "plotly.js-dist";
+import AMapLoader from "@amap/amap-jsapi-loader";
+
+window._AMapSecurityConfig = {
+    securityJsCode: "b4d5ff84d29387a34d126094cbf54ee3",
+};
 
 export default {
     components: {
@@ -287,7 +292,7 @@ export default {
                         width: 500,
                         font: {
                             size: 14,
-                        }
+                        },
                     };
 
                     Plotly.react("myDiv", data, layout);
@@ -584,8 +589,65 @@ export default {
                     console.error("There was an error!", error);
                 });
         },
+        initAMap() {
+            AMapLoader.load({
+                key: "86cec1246ee5b09a332bee19a24f5b23", // 申请好的Web端开发者Key，首次调用 load 时必填
+                version: "2.0", // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+                plugins: [], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+            })
+                .then((AMap) => {
+                    this.map = new AMap.Map("map-placeholder", {
+                        // 设置地图容器id
+                        viewMode: "3D", // 是否为3D地图模式
+                        zoom: 12, // 初始化地图级别
+                        center: [109.475976, 18.309057], // 初始化地图中心点位置
+                        // zoomEnable: false,
+                        // dragEnable: false,
+                        showBuildingBlock: false,
+                        terrain: true,
+                        layers: [new AMap.TileLayer.Satellite()],
+                    });
+                    let data = [
+                        [109.512051, 18.271936],
+                        [109.504613, 18.249891],
+                        [109.510924, 18.234694],
+                        [109.529855, 18.255028],
+                    ];
+                    let polygon = new AMap.Polygon({
+                        path: data,
+                        fillColor: "#3d699a",
+                        strokeOpacity: 1,
+                        fillOpacity: 0.8,
+                        strokeColor: "#3d699a",
+                        strokeWeight: 1,
+                        strokeStyle: "dashed",
+                        strokeDasharray: [5, 5],
+                    });
+                    polygon.on("mouseover", () => {
+                        polygon.setOptions({
+                            fillOpacity: 0.9,
+                            fillColor: "#3d699a",
+                        });
+                    });
+                    polygon.on("mouseout", () => {9
+                        polygon.setOptions({
+                            fillOpacity: 0.8,
+                            fillColor: "#3d699a",
+                        });
+                    });
+                    this.map.add(polygon);
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        },
     },
-    mounted() {},
+    mounted() {
+        this.initAMap();
+    },
+    unmounted() {
+        this.map?.destroy();
+    },
 };
 </script>
 
@@ -655,8 +717,7 @@ h1 {
 .slider-placeholder,
 .chart-placeholder,
 .sankey,
-.sankey-enlarge 
-.sankey-bar {
+.sankey-enlarge .sankey-bar {
     /* background-color: #f3f3f3; */
     /* height: 200px; */
     border: solid #ddd;
@@ -682,7 +743,7 @@ h1 {
     height: 700px;
     padding-left: 83px;
     padding-top: 437px;
-    background-image: url("../assets/map.jpg");
+    /* background-image: url("../assets/map.jpg"); */
     background-size: 950px;
     background-position: center;
     background-repeat: no-repeat;
