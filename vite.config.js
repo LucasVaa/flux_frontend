@@ -22,6 +22,12 @@ export default defineConfig({
         secure: false,  //忽略安全证书   
         rewrite: (path) => path.replace(/^\/api/, ''), // 重写路径把路径变成空字符,
       },
+      '/img': {
+        target: 'https://lucas-first-bucket-1300338483.cos.ap-nanjing.myqcloud.com',	//实际请求地址
+        changeOrigin: true, // 允许跨域
+        secure: false,  //忽略安全证书   
+        rewrite: (path) => path.replace(/^\/img/, ''), // 重写路径把路径变成空字符,
+      },
     }
   }
 })

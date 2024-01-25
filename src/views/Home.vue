@@ -596,6 +596,15 @@ export default {
                 plugins: [], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
             })
                 .then((AMap) => {
+                    var imageLayer = new AMap.ImageLayer({
+                        url: "/img/notes/sanya.jpg",
+                        bounds: new AMap.Bounds(
+                            [109.314817, 18.217222],
+                            [109.716262, 18.429262]
+                        ),
+                        zooms: [2, 14],
+                        opacity: 0.5
+                    });
                     this.map = new AMap.Map("map-placeholder", {
                         // 设置地图容器id
                         viewMode: "3D", // 是否为3D地图模式
@@ -605,37 +614,38 @@ export default {
                         // dragEnable: false,
                         showBuildingBlock: false,
                         terrain: true,
-                        layers: [new AMap.TileLayer.Satellite()],
+                        layers: [new AMap.TileLayer.Satellite(), imageLayer],
                     });
-                    let data = [
-                        [109.512051, 18.271936],
-                        [109.504613, 18.249891],
-                        [109.510924, 18.234694],
-                        [109.529855, 18.255028],
-                    ];
-                    let polygon = new AMap.Polygon({
-                        path: data,
-                        fillColor: "#3d699a",
-                        strokeOpacity: 1,
-                        fillOpacity: 0.8,
-                        strokeColor: "#3d699a",
-                        strokeWeight: 1,
-                        strokeStyle: "dashed",
-                        strokeDasharray: [5, 5],
-                    });
-                    polygon.on("mouseover", () => {
-                        polygon.setOptions({
-                            fillOpacity: 0.9,
-                            fillColor: "#3d699a",
-                        });
-                    });
-                    polygon.on("mouseout", () => {9
-                        polygon.setOptions({
-                            fillOpacity: 0.8,
-                            fillColor: "#3d699a",
-                        });
-                    });
-                    this.map.add(polygon);
+                    // let data = [
+                    //     [109.512051, 18.271936],
+                    //     [109.504613, 18.249891],
+                    //     [109.510924, 18.234694],
+                    //     [109.529855, 18.255028],
+                    // ];
+                    // let polygon = new AMap.Polygon({
+                    //     path: data,
+                    //     fillColor: "#3d699a",
+                    //     strokeOpacity: 1,
+                    //     fillOpacity: 0.8,
+                    //     strokeColor: "#3d699a",
+                    //     strokeWeight: 1,
+                    //     strokeStyle: "dashed",
+                    //     strokeDasharray: [5, 5],
+                    // });
+                    // polygon.on("mouseover", () => {
+                    //     polygon.setOptions({
+                    //         fillOpacity: 0.9,
+                    //         fillColor: "#3d699a",
+                    //     });
+                    // });
+                    // polygon.on("mouseout", () => {
+                    //     9;
+                    //     polygon.setOptions({
+                    //         fillOpacity: 0.8,
+                    //         fillColor: "#3d699a",
+                    //     });
+                    // });
+                    // this.map.add(polygon);
                 })
                 .catch((e) => {
                     console.log(e);
