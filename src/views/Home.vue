@@ -4,20 +4,20 @@
     <div class="container">
         <h1>Catchment plastic modelling</h1>
         <p class="description">
-            Herein, we took Sanya river catchment in China as the target study
-            area, established an integrated socio-economic and topographic
-            approach to modeling plastic transport from catchment to sea. Sanya
-            river catchment is located in Sanya city, which is a world-renowned
-            tourism city with tens of millions of tourists every year. By
-            analyzing the seasonal fluctuation of the amount of tourists and
-            combining with the features in each land use type, we summarized the
-            seasonal variation characteristics of plastic emission flux into
-            ocean. Meanwhile, the hot-spot plastic transportation areas were
-            also found. By using a top to down method, the plastic waste flow in
-            study area was also quantified. This model is helpful for local
-            authorities to formulate more targeted plastic pollution mitigation
-            policies. It also bridges a significant knowledge gap in the context
-            of tourism cities, offering substantial practical value.
+            Herein, we took S river catchment in China as the target study area,
+            established an integrated socio-economic and topographic approach to
+            modeling plastic transport from catchment to sea. S river catchment
+            is located in S city, which is a world-renowned tourism city with
+            tens of millions of tourists every year. By analyzing the seasonal
+            fluctuation of the amount of tourists and combining with the
+            features in each land use type, we summarized the seasonal variation
+            characteristics of plastic emission flux into ocean. Meanwhile, the
+            hot-spot plastic transportation areas were also found. By using a
+            top to down method, the plastic waste flow in study area was also
+            quantified. This model is helpful for local authorities to formulate
+            more targeted plastic pollution mitigation policies. It also bridges
+            a significant knowledge gap in the context of tourism cities,
+            offering substantial practical value.
         </p>
         <!-- ... 其他内容 ... -->
     </div>
@@ -208,10 +208,10 @@ export default {
             username: "",
             selectedCatchment: "Boreal - Norway",
             perCapitaWaste: 1.69,
-            populationDensity: 749325,
-            yearroundresidents: 749325,
-            seasonalresidents: 836071,
-            overnighttourists: 8642009,
+            populationDensity: 792758,
+            yearroundresidents: 792758,
+            seasonalresidents: 958146,
+            overnighttourists: 6002341,
             plasticWasteRatio: 17.5,
             mismanagedRatio: 0.39,
             recyclingRatio: 1.85,
@@ -287,7 +287,7 @@ export default {
                     ];
 
                     var layout = {
-                        title: "Plastic Waste Destination",
+                        title: "Plastic Waste Disposal",
                         height: 300,
                         width: 500,
                         font: {
@@ -597,13 +597,13 @@ export default {
             })
                 .then((AMap) => {
                     var imageLayer = new AMap.ImageLayer({
-                        url: "/img/notes/sanya.jpg",
+                        url: "/img/wc/sanya_0221.png",
                         bounds: new AMap.Bounds(
-                            [109.314817, 18.217222],
-                            [109.716262, 18.429262]
+                            [109.35736253412122, 18.14328529576562],
+                            [109.6517269667132, 18.547700433427874]
                         ),
-                        zooms: [2, 14],
-                        opacity: 0.5
+                        zooms: [2, 30],
+                        opacity: 0.7,
                     });
                     this.map = new AMap.Map("map-placeholder", {
                         // 设置地图容器id
