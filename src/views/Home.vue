@@ -123,39 +123,126 @@
                 </div>
             </div>
             <div id="map-placeholder" class="map-placeholder">
-                <span
-                    >{{ 0 }} -
-                    {{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (1 / 110)).toFixed(2) }}
-                    -
-                    {{ parseFloat(maxValue * (3 / 110)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (3 / 110)).toFixed(2) }}
-                    -
-                    {{ parseFloat(maxValue * (5 / 110)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (5 / 110)).toFixed(2) }}
-                    -
-                    {{ parseFloat(maxValue * (1 / 11)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (1 / 11)).toFixed(2) }}
-                    -
-                    {{ parseFloat(maxValue * (2 / 11)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (2 / 11)).toFixed(2) }}
-                    -
-                    {{ parseFloat(maxValue * (4 / 11)).toFixed(2) }}</span
-                >
-                <span
-                    >{{ parseFloat(maxValue * (4 / 11)).toFixed(2) }} -
-                    {{ parseFloat(maxValue).toFixed(2) }}</span
-                >
+                <div class="scale-bar">
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #4575b5;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ 0 }} -
+                            {{
+                                parseFloat(maxValue * (1 / 110)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #7b98ba;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (1 / 110)).toFixed(2) }} -
+                            {{
+                                parseFloat(maxValue * (3 / 110)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #aebdbc;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (3 / 110)).toFixed(2) }} -
+                            {{
+                                parseFloat(maxValue * (5 / 110)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #e3e8be;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (5 / 110)).toFixed(2) }} -
+                            {{
+                                parseFloat(maxValue * (1 / 11)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #ffe3a6;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (1 / 11)).toFixed(2) }} -
+                            {{
+                                parseFloat(maxValue * (2 / 11)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #f7a474;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (2 / 11)).toFixed(2) }} -
+                            {{
+                                parseFloat(maxValue * (4 / 11)).toFixed(2)
+                            }}</span
+                        >
+                    </div>
+                    <div
+                        style="
+                            width: 80px;
+                            height: 27px;
+                            background-color: #d62f27;
+                            border-style: solid;
+                            border-width: 1px;
+                            margin-bottom: 6px;
+                        "
+                    >
+                        <span style="margin-left: 90px; white-space: pre"
+                            >{{ parseFloat(maxValue * (4 / 11)).toFixed(2) }} -
+                            {{ parseFloat(maxValue).toFixed(2) }}</span
+                        >
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -844,5 +931,9 @@ h1 {
     /* Light grey border */
     box-shadow: inset 0 1px 3px #ddd;
     /* Inner shadow for some depth */
+}
+
+.scale-bar {
+    z-index: 1;
 }
 </style>
