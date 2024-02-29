@@ -280,6 +280,7 @@ import Slider from "@vueform/slider";
 import axios from "axios";
 import Plotly from "plotly.js-dist";
 import AMapLoader from "@amap/amap-jsapi-loader";
+import { ElMessage } from "element-plus";
 
 window._AMapSecurityConfig = {
     securityJsCode: "b4d5ff84d29387a34d126094cbf54ee3",
@@ -330,6 +331,18 @@ export default {
             // Logic to change the site
         },
         sendGetRequest() {
+            if (
+                this.mismanagedRatio +
+                    this.recyclingRatio +
+                    this.incinerationRatio >
+                100
+            ) {
+                ElMessage({
+                    message: "Mismanaged waste、Recycling rate 和 Incineration rate 相加需小于100",
+                    type: "error",
+                });
+                return;
+            }
             axios
                 .get("/api/run/", {
                     params: {
