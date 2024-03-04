@@ -708,8 +708,8 @@ export default {
                     this.map = new AMap.Map("map-placeholder", {
                         // 设置地图容器id
                         viewMode: "3D", // 是否为3D地图模式
-                        zoom: 12, // 初始化地图级别
-                        center: [109.475976, 18.309057], // 初始化地图中心点位置
+                        zoom: 14, // 初始化地图级别
+                        center: [109.51889295693796,18.249364787461644], // 初始化地图中心点位置
                         // zoomEnable: false,
                         // dragEnable: false,
                         showBuildingBlock: false,
