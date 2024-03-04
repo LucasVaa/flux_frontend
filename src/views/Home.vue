@@ -373,7 +373,7 @@ export default {
                                 this.sankey.RW,
                             ],
                             labels: [
-                                "Garbage incineration generation plant",
+                                "Garbage incineration",
                                 "Sanitary landfill site",
                                 "Mismanaged plastic waste",
                                 "Recycable waste",
