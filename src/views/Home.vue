@@ -2,7 +2,7 @@
 
 <template>
     <div class="container">
-        <h1>Catchment plastic modelling</h1>
+        <h1 style="font-size: 36px;">Catchment plastic modelling</h1>
         <p class="description">
             Herein, we took S river catchment in China as the target study area,
             established an integrated socio-economic and topographic approach to
@@ -124,6 +124,18 @@
             </div>
             <div id="map-placeholder" class="map-placeholder">
                 <div class="scale-bar">
+                    <div 
+                        style="position: relative; 
+                        width: 80px; 
+                        height: 30px; 
+                        background-color: transparent; 
+                        border-style: none; 
+                        border-width: 1px; 
+                        margin-bottom: 6px;
+                        ">
+                     
+                        <span style="position: absolute; top: 0px; left: 5px;font-size: 20px;">Value(unite:tons/yr)</span>
+                    </div>
                     <div
                         style="
                             width: 80px;
@@ -303,7 +315,7 @@ export default {
             plasticWasteRatio: 17.5,
             mismanagedRatio: 0.39,
             recyclingRatio: 1.85,
-            incinerationRatio: 72,
+            incinerationRatio: 70.39,
             marineEntryProbability: 35,
             plasticOceanInflux: 0,
             maxValue: 0,
@@ -450,7 +462,7 @@ export default {
                     };
 
                     var dataZoom = [dataZoom];
-
+ 
                     var layoutZoom = {
                         title: "Mismanaged plastic waste flow",
                         width: 600,
@@ -709,7 +721,7 @@ export default {
                         // 设置地图容器id
                         viewMode: "3D", // 是否为3D地图模式
                         zoom: 14, // 初始化地图级别
-                        center: [109.51889295693796,18.249364787461644], // 初始化地图中心点位置
+                        center: [109.51,18.255], // 初始化地图中心点位置
                         // zoomEnable: false,
                         // dragEnable: false,
                         showBuildingBlock: false,
@@ -852,7 +864,7 @@ h1 {
 .map-placeholder {
     height: 700px;
     padding-left: 83px;
-    padding-top: 437px;
+    padding-top: 407px;
     /* background-image: url("../assets/map.jpg"); */
     background-size: 950px;
     background-position: center;
