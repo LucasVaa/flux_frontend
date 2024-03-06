@@ -350,7 +350,7 @@ export default {
                 100
             ) {
                 ElMessage({
-                    message: "Mismanaged waste、Recycling rate 和 Incineration rate 相加需小于100",
+                    message: "Mismanaged waste, Recycling rate, and Incineration rate should sum up to less than 100.",
                     type: "error",
                 });
                 return;
