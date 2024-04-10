@@ -29,91 +29,43 @@
             <div class="slider-placeholder">
                 <div>
                     <div class="input-group">
-                        <label for="waste-per-person"
-                            >Waste Generation [kg/(person·day)]</label
-                        >
-                        <input
-                            type="number"
-                            id="waste-per-person"
-                            v-model="perCapitaWaste"
-                            step="0.01"
-                        />
+                        <label for="waste-per-person">Waste Generation [kg/(person·day)]</label>
+                        <input type="number" id="waste-per-person" v-model="perCapitaWaste" step="0.01" />
                     </div>
 
                     <div class="input-group">
-                        <label for="yearround-residents"
-                            >Year-round Residents (people)</label
-                        >
-                        <input
-                            type="number"
-                            id="yearround-residents"
-                            v-model="yearroundresidents"
-                        />
+                        <label for="yearround-residents">Year-round Residents (people)</label>
+                        <input type="number" id="yearround-residents" v-model="yearroundresidents" />
                     </div>
 
                     <div class="input-group">
-                        <label for="seasonal-residents"
-                            >Seasonal Residents (people)</label
-                        >
-                        <input
-                            type="number"
-                            id="seasonal-residents"
-                            v-model="seasonalresidents"
-                        />
+                        <label for="seasonal-residents">Seasonal Residents (people)</label>
+                        <input type="number" id="seasonal-residents" v-model="seasonalresidents" />
                     </div>
 
                     <div class="input-group">
-                        <label for="overnight-tourists"
-                            >Overnight Tourists (people)</label
-                        >
-                        <input
-                            type="number"
-                            id="overnight-tourists"
-                            v-model="overnighttourists"
-                        />
+                        <label for="overnight-tourists">Overnight Tourists (people)</label>
+                        <input type="number" id="overnight-tourists" v-model="overnighttourists" />
                     </div>
 
                     <div class="input-group">
-                        <label for="recycling-rate"
-                            >Proportion of Plastic Waste (%)</label
-                        >
-                        <input
-                            type="number"
-                            id="recycling-rate"
-                            v-model="plasticWasteRatio"
-                        />
+                        <label for="recycling-rate">Proportion of Plastic Waste (%)</label>
+                        <input type="number" id="recycling-rate" v-model="plasticWasteRatio" />
                     </div>
 
                     <div class="input-group">
                         <label for="landfill-rate">Mismanaged waste (%)</label>
-                        <input
-                            type="number"
-                            id="landfill-rate"
-                            v-model="mismanagedRatio"
-                            step="0.01"
-                        />
+                        <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01" />
                     </div>
 
                     <div class="input-group">
                         <label for="recycling-rate">Recycling rate (%)</label>
-                        <input
-                            type="number"
-                            id="recycling-rate"
-                            v-model="recyclingRatio"
-                            step="0.01"
-                        />
+                        <input type="number" id="recycling-rate" v-model="recyclingRatio" step="0.01" />
                     </div>
 
                     <div class="input-group">
-                        <label for="incineration-rate"
-                            >Incineration rate (%)</label
-                        >
-                        <input
-                            type="number"
-                            id="incineration-rate"
-                            v-model="incinerationRatio"
-                            step="0.01"
-                        />
+                        <label for="incineration-rate">Incineration rate (%)</label>
+                        <input type="number" id="incineration-rate" v-model="incinerationRatio" step="0.01" />
                     </div>
                     <div class="button-container">
                         <button class="styled-button" @click="sendGetRequest">
@@ -124,8 +76,7 @@
             </div>
             <div id="map-placeholder" class="map-placeholder">
                 <div class="scale-bar">
-                    <div 
-                        style="position: relative; 
+                    <div style="position: relative; 
                         width: 80px; 
                         height: 30px; 
                         background-color: transparent; 
@@ -133,126 +84,105 @@
                         border-width: 1px; 
                         margin-bottom: 6px;
                         ">
-                     
-                        <span style="position: absolute; top: 0px; left: 5px;font-size: 20px;">Value(unite:tons/yr)</span>
+
+                        <span
+                            style="position: absolute; top: 0px; left: 5px;font-size: 20px;">Value(unite:tons/yr)</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #4575b5;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ 0 }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ 0 }} -
                             {{
-                                parseFloat(maxValue * (1 / 110)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (1 / 110)).toFixed(2)
+                        }}</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #7b98ba;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (1 / 110)).toFixed(2) }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 / 110)).toFixed(2)
+                            }} -
                             {{
-                                parseFloat(maxValue * (3 / 110)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (3 / 110)).toFixed(2)
+                        }}</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #aebdbc;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (3 / 110)).toFixed(2) }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (3 / 110)).toFixed(2)
+                            }} -
                             {{
-                                parseFloat(maxValue * (5 / 110)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (5 / 110)).toFixed(2)
+                        }}</span>
                     </div>
 
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #e3e8be;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (5 / 110)).toFixed(2) }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (5 / 110)).toFixed(2)
+                            }} -
                             {{
-                                parseFloat(maxValue * (1 / 11)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (1 / 11)).toFixed(2)
+                        }}</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #ffe3a6;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (1 / 11)).toFixed(2) }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 / 11)).toFixed(2)
+                            }} -
                             {{
-                                parseFloat(maxValue * (2 / 11)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (2 / 11)).toFixed(2)
+                        }}</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #f7a474;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (2 / 11)).toFixed(2) }} -
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (2 / 11)).toFixed(2)
+                            }} -
                             {{
-                                parseFloat(maxValue * (4 / 11)).toFixed(2)
-                            }}</span
-                        >
+                            parseFloat(maxValue * (4 / 11)).toFixed(2)
+                        }}</span>
                     </div>
-                    <div
-                        style="
+                    <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #d62f27;
                             border-style: solid;
                             border-width: 1px;
                             margin-bottom: 6px;
-                        "
-                    >
-                        <span style="margin-left: 90px; white-space: pre"
-                            >{{ parseFloat(maxValue * (4 / 11)).toFixed(2) }} -
-                            {{ parseFloat(maxValue).toFixed(2) }}</span
-                        >
+                        ">
+                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (4 / 11)).toFixed(2)
+                            }} -
+                            {{ parseFloat(maxValue).toFixed(2) }}</span>
                     </div>
                 </div>
             </div>
@@ -266,16 +196,10 @@
                 <span>{{ plasticOceanInflux }} tons</span>
             </div>
             <div class="sankey">
-                <div
-                    id="myDiv"
-                    style="width: 500px; height: 250px; float: left"
-                ></div>
+                <div id="myDiv" style="width: 500px; height: 250px; float: left"></div>
             </div>
             <div class="sankey-enlarge">
-                <div
-                    id="enlarge"
-                    style="width: 600px; height: 250px; float: left"
-                ></div>
+                <div id="enlarge" style="width: 600px; height: 250px; float: left"></div>
             </div>
         </div>
 
@@ -345,8 +269,8 @@ export default {
         sendGetRequest() {
             if (
                 this.mismanagedRatio +
-                    this.recyclingRatio +
-                    this.incinerationRatio >
+                this.recyclingRatio +
+                this.incinerationRatio >
                 100
             ) {
                 ElMessage({
@@ -462,7 +386,7 @@ export default {
                     };
 
                     var dataZoom = [dataZoom];
- 
+
                     var layoutZoom = {
                         title: "Mismanaged plastic waste flow",
                         width: 600,
@@ -709,55 +633,21 @@ export default {
             })
                 .then((AMap) => {
                     var imageLayer = new AMap.ImageLayer({
-                        url: "/img/wc/sanya_0221.png",
+                        url: "https://lucas-first-bucket-1300338483.cos.ap-nanjing.myqcloud.com/wc/sanya_0221.png",
                         bounds: new AMap.Bounds(
                             [109.35706727260788, 18.142955934558277],
                             [109.65200923279814, 18.54797726450876]
                         ),
+                        zindex: 2,
                         zooms: [2, 30],
                         opacity: 0.7,
                     });
+                    var SatelliteLayer = new AMap.TileLayer.Satellite();
                     this.map = new AMap.Map("map-placeholder", {
-                        // 设置地图容器id
-                        viewMode: "3D", // 是否为3D地图模式
                         zoom: 14, // 初始化地图级别
-                        center: [109.51,18.255], // 初始化地图中心点位置
-                        // zoomEnable: false,
-                        // dragEnable: false,
-                        showBuildingBlock: false,
-                        terrain: true,
-                        layers: [new AMap.TileLayer.Satellite(), imageLayer],
+                        center: [109.51, 18.255], // 初始化地图中心点位置
+                        layers: [SatelliteLayer, imageLayer],
                     });
-                    // let data = [
-                    //     [109.512051, 18.271936],
-                    //     [109.504613, 18.249891],
-                    //     [109.510924, 18.234694],
-                    //     [109.529855, 18.255028],
-                    // ];
-                    // let polygon = new AMap.Polygon({
-                    //     path: data,
-                    //     fillColor: "#3d699a",
-                    //     strokeOpacity: 1,
-                    //     fillOpacity: 0.8,
-                    //     strokeColor: "#3d699a",
-                    //     strokeWeight: 1,
-                    //     strokeStyle: "dashed",
-                    //     strokeDasharray: [5, 5],
-                    // });
-                    // polygon.on("mouseover", () => {
-                    //     polygon.setOptions({
-                    //         fillOpacity: 0.9,
-                    //         fillColor: "#3d699a",
-                    //     });
-                    // });
-                    // polygon.on("mouseout", () => {
-                    //     9;
-                    //     polygon.setOptions({
-                    //         fillOpacity: 0.8,
-                    //         fillColor: "#3d699a",
-                    //     });
-                    // });
-                    // this.map.add(polygon);
                 })
                 .catch((e) => {
                     console.log(e);
@@ -767,9 +657,9 @@ export default {
     mounted() {
         this.initAMap();
     },
-    unmounted() {
-        this.map?.destroy();
-    },
+    // unmounted() {
+    //     this.map?.destroy();
+    // },
 };
 </script>
 
