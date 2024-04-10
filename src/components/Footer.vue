@@ -19,7 +19,6 @@ export default {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    min-width: 1240px;
     width: 100%; /* 确保宽度为 100% */
     box-sizing: border-box; /* 使宽度包括内边距和边框 */
     margin: 0; /* 移除外边距 */

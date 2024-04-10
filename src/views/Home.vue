@@ -341,8 +341,8 @@ export default {
 
                     var layout = {
                         title: "Plastic Waste Disposal",
-                        width: this.screenWidth * 0.4,
-                        height: this.screenHeight * 0.4,
+                        // width: this.screenWidth * 0.4,
+                        // height: this.screenHeight * 0.4,
                         font: {
                             size: 14,
                         },
@@ -406,8 +406,8 @@ export default {
 
                     var layoutZoom = {
                         title: "Mismanaged plastic waste flow",
-                        width: this.screenWidth * 0.5,
-                        height: this.screenHeight * 0.5,
+                        // width: this.screenWidth * 0.5,
+                        // height: this.screenHeight * 0.5,
                         font: {
                             size: 14,
                         },
@@ -633,6 +633,7 @@ export default {
                         legend: {
                             x: 1.08,
                         },
+                        width: 1000,
                     };
 
                     Plotly.react("bar", barData, barLayout);
@@ -767,14 +768,14 @@ h1 {
 }
 
 .slider-placeholder {
-    height: 700px;
+    /* height: 700px; */
     float: left;
 }
 
 .map-placeholder {
-    height: 700px;
-    padding-left: 83px;
-    padding-top: 407px;
+    /* height: 700px; */
+    padding-left: 3%;
+    padding-top: 37%;
     /* background-image: url("../assets/map.jpg"); */
     background-size: 950px;
     background-position: center;
@@ -787,19 +788,21 @@ h1 {
 .sankey {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: baseline;
 }
 
 .sankey-enlarge {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: baseline;
     border: solid #ddd;
     border-width: 0 1px 0 1px;
 }
 
 .sankey-bar {
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
     border: solid #ddd;
     border-width: 0 1px 0 1px;
 }
