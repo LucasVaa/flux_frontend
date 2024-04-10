@@ -617,7 +617,7 @@ export default {
                     var barData = [YR, SR, OT, CL, F, GL, BL, sum];
 
                     var barLayout = {
-                        title: "The contribution of plastic emission flux of different population types and the total monthly plastic emission flux",
+                        title: "The contribution of plastic emission flux of different population types<br />and the total monthly plastic emission flux",
                         font: {
                             size: 14,
                         },
