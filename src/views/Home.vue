@@ -1,82 +1,83 @@
 <!-- src/components/Home.vue -->
 
 <template>
-    <div class="container">
-        <h1 style="font-size: 36px;">Catchment plastic modelling</h1>
-        <p class="description">
-            Herein, we took S river catchment in China as the target study area,
-            established an integrated socio-economic and topographic approach to
-            modeling plastic transport from catchment to sea. S river catchment
-            is located in S city, which is a world-renowned tourism city with
-            tens of millions of tourists every year. By analyzing the seasonal
-            fluctuation of the amount of tourists and combining with the
-            features in each land use type, we summarized the seasonal variation
-            characteristics of plastic emission flux into ocean. Meanwhile, the
-            hot-spot plastic transportation areas were also found. By using a
-            top to down method, the plastic waste flow in study area was also
-            quantified. This model is helpful for local authorities to formulate
-            more targeted plastic pollution mitigation policies. It also bridges
-            a significant knowledge gap in the context of tourism cities,
-            offering substantial practical value.
-        </p>
-        <!-- ... 其他内容 ... -->
-    </div>
-    <div class="page-section">
-        <!-- Model inputs section -->
-        <div class="model-inputs-section">
-            <h2>Model inputs</h2>
-            <!-- Slider placeholder -->
-            <div class="slider-placeholder">
-                <div>
-                    <div class="input-group">
-                        <label for="waste-per-person">Waste Generation [kg/(person·day)]</label>
-                        <input type="number" id="waste-per-person" v-model="perCapitaWaste" step="0.01" />
-                    </div>
+    <div class="out">
+        <div class="container">
+            <h1 style="font-size: 36px;">Catchment plastic modelling</h1>
+            <p class="description">
+                Herein, we took S river catchment in China as the target study area,
+                established an integrated socio-economic and topographic approach to
+                modeling plastic transport from catchment to sea. S river catchment
+                is located in S city, which is a world-renowned tourism city with
+                tens of millions of tourists every year. By analyzing the seasonal
+                fluctuation of the amount of tourists and combining with the
+                features in each land use type, we summarized the seasonal variation
+                characteristics of plastic emission flux into ocean. Meanwhile, the
+                hot-spot plastic transportation areas were also found. By using a
+                top to down method, the plastic waste flow in study area was also
+                quantified. This model is helpful for local authorities to formulate
+                more targeted plastic pollution mitigation policies. It also bridges
+                a significant knowledge gap in the context of tourism cities,
+                offering substantial practical value.
+            </p>
+            <!-- ... 其他内容 ... -->
+        </div>
+        <div class="page-section">
+            <!-- Model inputs section -->
+            <div class="model-inputs-section">
+                <h2>Model inputs</h2>
+                <!-- Slider placeholder -->
+                <div class="slider-placeholder">
+                    <div>
+                        <div class="input-group">
+                            <label for="waste-per-person">Waste Generation [kg/(person·day)]</label>
+                            <input type="number" id="waste-per-person" v-model="perCapitaWaste" step="0.01" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="yearround-residents">Year-round Residents (people)</label>
-                        <input type="number" id="yearround-residents" v-model="yearroundresidents" />
-                    </div>
+                        <div class="input-group">
+                            <label for="yearround-residents">Year-round Residents (people)</label>
+                            <input type="number" id="yearround-residents" v-model="yearroundresidents" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="seasonal-residents">Seasonal Residents (people)</label>
-                        <input type="number" id="seasonal-residents" v-model="seasonalresidents" />
-                    </div>
+                        <div class="input-group">
+                            <label for="seasonal-residents">Seasonal Residents (people)</label>
+                            <input type="number" id="seasonal-residents" v-model="seasonalresidents" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="overnight-tourists">Overnight Tourists (people)</label>
-                        <input type="number" id="overnight-tourists" v-model="overnighttourists" />
-                    </div>
+                        <div class="input-group">
+                            <label for="overnight-tourists">Overnight Tourists (people)</label>
+                            <input type="number" id="overnight-tourists" v-model="overnighttourists" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="recycling-rate">Proportion of Plastic Waste (%)</label>
-                        <input type="number" id="recycling-rate" v-model="plasticWasteRatio" />
-                    </div>
+                        <div class="input-group">
+                            <label for="recycling-rate">Proportion of Plastic Waste (%)</label>
+                            <input type="number" id="recycling-rate" v-model="plasticWasteRatio" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="landfill-rate">Mismanaged waste (%)</label>
-                        <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01" />
-                    </div>
+                        <div class="input-group">
+                            <label for="landfill-rate">Mismanaged waste (%)</label>
+                            <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="recycling-rate">Recycling rate (%)</label>
-                        <input type="number" id="recycling-rate" v-model="recyclingRatio" step="0.01" />
-                    </div>
+                        <div class="input-group">
+                            <label for="recycling-rate">Recycling rate (%)</label>
+                            <input type="number" id="recycling-rate" v-model="recyclingRatio" step="0.01" />
+                        </div>
 
-                    <div class="input-group">
-                        <label for="incineration-rate">Incineration rate (%)</label>
-                        <input type="number" id="incineration-rate" v-model="incinerationRatio" step="0.01" />
-                    </div>
-                    <div class="button-container">
-                        <button class="styled-button" @click="sendGetRequest">
-                            Run Model
-                        </button>
+                        <div class="input-group">
+                            <label for="incineration-rate">Incineration rate (%)</label>
+                            <input type="number" id="incineration-rate" v-model="incinerationRatio" step="0.01" />
+                        </div>
+                        <div class="button-container">
+                            <button class="styled-button" @click="sendGetRequest">
+                                Run Model
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="map-placeholder" class="map-placeholder">
-                <div class="scale-bar">
-                    <div style="position: relative; 
+                <div id="map-placeholder" class="map-placeholder">
+                    <div class="scale-bar">
+                        <div style="position: relative; 
                         width: 80px; 
                         height: 30px; 
                         background-color: transparent; 
@@ -85,10 +86,10 @@
                         margin-bottom: 6px;
                         ">
 
-                        <span
-                            style="position: absolute; top: 0px; left: 5px;font-size: 20px;">Value(unite:tons/yr)</span>
-                    </div>
-                    <div style="
+                            <span
+                                style="position: absolute; top: 0px; left: 5px;font-size: 20px;">Value(unite:tons/yr)</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #4575b5;
@@ -96,12 +97,12 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ 0 }} -
-                            {{
-                            parseFloat(maxValue * (1 / 110)).toFixed(2)
-                        }}</span>
-                    </div>
-                    <div style="
+                            <span style="margin-left: 90px; white-space: pre">{{ 0 }} -
+                                {{
+                                    parseFloat(maxValue * (1 / 110)).toFixed(2)
+                                }}</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #7b98ba;
@@ -109,13 +110,14 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 / 110)).toFixed(2)
-                            }} -
-                            {{
-                            parseFloat(maxValue * (3 / 110)).toFixed(2)
-                        }}</span>
-                    </div>
-                    <div style="
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 /
+                                110)).toFixed(2)
+                                }} -
+                                {{
+                                    parseFloat(maxValue * (3 / 110)).toFixed(2)
+                                }}</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #aebdbc;
@@ -123,14 +125,15 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (3 / 110)).toFixed(2)
-                            }} -
-                            {{
-                            parseFloat(maxValue * (5 / 110)).toFixed(2)
-                        }}</span>
-                    </div>
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (3 /
+                                110)).toFixed(2)
+                                }} -
+                                {{
+                                    parseFloat(maxValue * (5 / 110)).toFixed(2)
+                                }}</span>
+                        </div>
 
-                    <div style="
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #e3e8be;
@@ -138,13 +141,14 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (5 / 110)).toFixed(2)
-                            }} -
-                            {{
-                            parseFloat(maxValue * (1 / 11)).toFixed(2)
-                        }}</span>
-                    </div>
-                    <div style="
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (5 /
+                                110)).toFixed(2)
+                                }} -
+                                {{
+                                    parseFloat(maxValue * (1 / 11)).toFixed(2)
+                                }}</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #ffe3a6;
@@ -152,13 +156,14 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 / 11)).toFixed(2)
-                            }} -
-                            {{
-                            parseFloat(maxValue * (2 / 11)).toFixed(2)
-                        }}</span>
-                    </div>
-                    <div style="
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (1 /
+                                11)).toFixed(2)
+                                }} -
+                                {{
+                                    parseFloat(maxValue * (2 / 11)).toFixed(2)
+                                }}</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #f7a474;
@@ -166,13 +171,14 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (2 / 11)).toFixed(2)
-                            }} -
-                            {{
-                            parseFloat(maxValue * (4 / 11)).toFixed(2)
-                        }}</span>
-                    </div>
-                    <div style="
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (2 /
+                                11)).toFixed(2)
+                                }} -
+                                {{
+                                    parseFloat(maxValue * (4 / 11)).toFixed(2)
+                                }}</span>
+                        </div>
+                        <div style="
                             width: 80px;
                             height: 27px;
                             background-color: #d62f27;
@@ -180,33 +186,38 @@
                             border-width: 1px;
                             margin-bottom: 6px;
                         ">
-                        <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (4 / 11)).toFixed(2)
-                            }} -
-                            {{ parseFloat(maxValue).toFixed(2) }}</span>
+                            <span style="margin-left: 90px; white-space: pre">{{ parseFloat(maxValue * (4 /
+                                11)).toFixed(2)
+                                }} -
+                                {{ parseFloat(maxValue).toFixed(2) }}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Model results placeholder -->
-        <div class="model-results-section">
-            <h2>Model results</h2>
-            <div class="chart-placeholder">
-                <label>Total plastic emission flux: </label>
-                <span>{{ plasticOceanInflux }} tons</span>
+            <!-- Model results placeholder -->
+            <div class="model-results-section" v-if="showResult">
+                <h2>Model results</h2>
+                <div class="chart-placeholder">
+                    <label>Total plastic emission flux: </label>
+                    <span>{{ plasticOceanInflux }} tons</span>
+                </div>
+                <div class="sankey">
+                    <div id="myDiv"></div>
+                </div>
+                <div class="sankey-enlarge">
+                    <div id="enlarge"></div>
+                </div>
+                <div class="sankey-bar">
+                    <div id="bar"></div>
+                </div>
             </div>
-            <div class="sankey">
-                <div id="myDiv" style="width: 500px; height: 250px; float: left"></div>
-            </div>
-            <div class="sankey-enlarge">
-                <div id="enlarge" style="width: 600px; height: 250px; float: left"></div>
-            </div>
-        </div>
-
-        <div class="model-results-section">
-            <div class="sankey-bar">
-                <div id="bar"></div>
-            </div>
+            <!-- 
+            <div class="model-results-section">
+                <div class="sankey-bar">
+                    <div id="bar"></div>
+                </div>
+            </div> -->
         </div>
     </div>
 </template>
@@ -260,6 +271,11 @@ export default {
             format: function (value) {
                 return `${value}`;
             },
+            showResult: false,
+            // 屏幕宽度
+            screenWidth: document.body.clientWidth,
+            // 屏幕高度
+            screenHeight: document.body.clientHeight
         };
     },
     methods: {
@@ -279,6 +295,7 @@ export default {
                 });
                 return;
             }
+            this.showResult = true;
             axios
                 .get("/api/run/", {
                     params: {
@@ -324,8 +341,8 @@ export default {
 
                     var layout = {
                         title: "Plastic Waste Disposal",
-                        height: 300,
-                        width: 500,
+                        width: this.screenWidth * 0.4,
+                        height: this.screenHeight * 0.4,
                         font: {
                             size: 14,
                         },
@@ -389,8 +406,8 @@ export default {
 
                     var layoutZoom = {
                         title: "Mismanaged plastic waste flow",
-                        width: 600,
-                        height: 300,
+                        width: this.screenWidth * 0.5,
+                        height: this.screenHeight * 0.5,
                         font: {
                             size: 14,
                         },
@@ -665,9 +682,12 @@ export default {
 
 <style src="@vueform/slider/themes/default.css"></style>
 <style scoped>
+.out {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
 .container {
-    width: 100%;
-    /* margin-top: 80px; */
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
@@ -767,14 +787,19 @@ h1 {
 .sankey {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    float: left;
+    align-items: center;
 }
 
 .sankey-enlarge {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    border: solid #ddd;
+    border-width: 0 1px 0 1px;
+}
+
+.sankey-bar {
+    align-items: center;
     border: solid #ddd;
     border-width: 0 1px 0 1px;
 }
