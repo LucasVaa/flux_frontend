@@ -684,7 +684,7 @@ export default {
 <style src="@vueform/slider/themes/default.css"></style>
 <style scoped>
 .out {
-    max-width: 80%;
+    width: 1280px;
     margin: 0 auto;
 }
 
@@ -788,13 +788,13 @@ h1 {
 .sankey {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
 }
 
 .sankey-enlarge {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
     border: solid #ddd;
     border-width: 0 1px 0 1px;
 }
@@ -802,7 +802,7 @@ h1 {
 .sankey-bar {
     display: flex;
     flex-direction: column;
-    align-items: baseline;
+    align-items: center;
     border: solid #ddd;
     border-width: 0 1px 0 1px;
 }
