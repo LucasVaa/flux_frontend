@@ -55,8 +55,13 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="landfill-rate">Mismanaged waste (%)</label>
-                            <input type="number" id="landfill-rate" v-model="mismanagedRatio" step="0.01" />
+                            <label for="landfill-rate">Mismanaged waste_urban (%)</label>
+                            <input type="number" id="landfill-rate" v-model="mismanagedurbanRatio" step="0.01" />
+                        </div>
+
+                        <div class="input-group">
+                            <label for="landfill-rate">Mismanaged waste_other (%)</label>
+                            <input type="number" id="landfill-rate" v-model="mismanagedelseRatio" step="0.01" />
                         </div>
 
                         <div class="input-group">
@@ -248,7 +253,8 @@ export default {
             seasonalresidents: 958146,
             overnighttourists: 6002341,
             plasticWasteRatio: 17.5,
-            mismanagedRatio: 0.39,
+            mismanagedurbanRatio: 0.39,
+            mismanagedelseRatio: 13.24,
             recyclingRatio: 1.85,
             incinerationRatio: 70.39,
             marineEntryProbability: 35,
@@ -284,7 +290,7 @@ export default {
         },
         sendGetRequest() {
             if (
-                this.mismanagedRatio +
+                this.mismanagedelseRatio +
                 this.recyclingRatio +
                 this.incinerationRatio >
                 100
@@ -304,7 +310,8 @@ export default {
                         P1_3_input: this.overnighttourists,
                         W_input: this.perCapitaWaste,
                         PRO_input: this.plasticWasteRatio,
-                        M_input: this.mismanagedRatio,
+                        M_urban_input: this.mismanagedurbanRatio,
+                        M_else_input: this.mismanagedelseRatio,
                         Re_input: this.recyclingRatio,
                         I_input: this.incinerationRatio,
                     },
