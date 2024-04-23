@@ -55,22 +55,22 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="landfill-rate">Mismanaged waste_urban (%)</label>
+                            <label for="landfill-rate">Mismanaged Urban Waste (%)</label>
                             <input type="number" id="landfill-rate" v-model="mismanagedurbanRatio" step="0.01" />
                         </div>
 
                         <div class="input-group">
-                            <label for="landfill-rate">Mismanaged waste_other (%)</label>
+                            <label for="landfill-rate">Mismanaged Other Waste (%)</label>
                             <input type="number" id="landfill-rate" v-model="mismanagedelseRatio" step="0.01" />
                         </div>
 
                         <div class="input-group">
-                            <label for="recycling-rate">Recycling rate (%)</label>
+                            <label for="recycling-rate">Recycling Rate (%)</label>
                             <input type="number" id="recycling-rate" v-model="recyclingRatio" step="0.01" />
                         </div>
 
                         <div class="input-group">
-                            <label for="incineration-rate">Incineration rate (%)</label>
+                            <label for="incineration-rate">Incineration Rate (%)</label>
                             <input type="number" id="incineration-rate" v-model="incinerationRatio" step="0.01" />
                         </div>
                         <div class="button-container">
@@ -301,6 +301,15 @@ export default {
                 });
                 return;
             }
+            if (
+                this.mismanagedurbanRatio > this.mismanagedelseRatio
+            ) {
+                ElMessage({
+                    message: "Mismanaged Urban Waste should less than Mismanaged Other Waste.",
+                    type: "error",
+                });
+                return;
+            }
             this.showResult = true;
             axios
                 .get("/api/run/", {
@@ -452,7 +461,7 @@ export default {
                             this.bar.NOV.NOV_YR,
                             this.bar.DEC.DEC_YR,
                         ],
-                        name: "Year-round Residents",
+                        name: "Artificial Land(Year-round Residents)",
                         type: "bar",
                         marker: {
                             color: "rgb(70,130,180,0.5)",
@@ -475,7 +484,7 @@ export default {
                             this.bar.NOV.NOV_SR,
                             this.bar.DEC.DEC_SR,
                         ],
-                        name: "Seasonal Residents",
+                        name: "Artificial Land(Residents)",
                         type: "bar",
                         marker: {
                             color: "rgb(30,144,255,0.5)",
@@ -498,7 +507,7 @@ export default {
                             this.bar.NOV.NOV_OT,
                             this.bar.DEC.DEC_OT,
                         ],
-                        name: "Overnight Tourists",
+                        name: "Artificial Land(Overnight Tourists)",
                         type: "bar",
                         marker: {
                             color: "rgb(135,206,235,0.5)",
